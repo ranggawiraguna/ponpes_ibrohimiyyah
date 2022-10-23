@@ -1,13 +1,13 @@
-import PerfectScrollbar from "react-perfect-scrollbar";
-import MainCard from "components/views/Header/ProfileSection/MainCard";
-import MaterialTransitions from "components/elements/MaterialTransitions";
-import AlertToast from "components/elements/AlertToast";
-import { useState, useRef, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { MENU_OPEN } from "utils/redux/action";
-import { useTheme } from "@mui/material/styles";
-import { IconLogout, IconSettings, IconUser } from "@tabler/icons";
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import MainCard from 'components/views/Header/ProfileSection/MainCard';
+import MaterialTransitions from 'components/elements/MaterialTransitions';
+import AlertToast from 'components/elements/AlertToast';
+import { useState, useRef, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { MENU_OPEN } from 'utils/redux/action';
+import { useTheme } from '@mui/material/styles';
+import { IconLogout, IconSettings, IconUser } from '@tabler/icons';
 import {
   Avatar,
   Box,
@@ -21,8 +21,8 @@ import {
   Paper,
   Popper,
   Stack,
-  Typography,
-} from "@mui/material";
+  Typography
+} from '@mui/material';
 
 export default function ProfileSection() {
   const sidebarReducer = useSelector((state) => state.sidebarReducer);
@@ -36,14 +36,14 @@ export default function ProfileSection() {
   const [isLogoutProcess] = useState(false);
   const [alertDescription, setAlertDescription] = useState({
     isOpen: false,
-    type: "info",
-    text: "",
-    transitionName: "slideUp",
+    type: 'info',
+    text: '',
+    transitionName: 'slideUp'
   });
 
   const handleLogout = async () => {
     if (!isLogoutProcess) {
-      navigate("/masuk");
+      navigate('/masuk');
     }
   };
 
@@ -54,15 +54,15 @@ export default function ProfileSection() {
     setOpen(false);
   };
 
-  const handleListItemClick = (event, route = "") => {
+  const handleListItemClick = (event, route = '') => {
     handleClose(event);
 
-    if (route && route !== "") {
+    if (route && route !== '') {
       dispatch({
         type: MENU_OPEN,
-        id: route.split("/")[route.split("/").length - 1],
+        id: route.split('/')[route.split('/').length - 1]
       });
-      navigate(location.pathname.split("/")[1] + route);
+      navigate(location.pathname.split('/')[1] + route);
     }
   };
 
@@ -79,53 +79,48 @@ export default function ProfileSection() {
     prevOpen.current = open;
   }, [open]);
 
-
   return (
     <>
       <Chip
         sx={{
-          height: "48px",
-          alignItems: "center",
-          borderRadius: "27px",
-          transition: "all .2s ease-in-out",
+          height: '48px',
+          alignItems: 'center',
+          borderRadius: '27px',
+          transition: 'all .2s ease-in-out',
           borderColor: theme.palette.primary.light,
           backgroundColor: theme.palette.primary.light,
+          fontFamily: 'Folks',
           '&[aria-controls="menu-list-grow"], &:hover': {
             borderColor: theme.palette.primary.main,
             background: `${theme.palette.primary.main}!important`,
             color: theme.palette.primary.light,
-            "& svg": {
-              stroke: theme.palette.primary.light,
-            },
+            '& svg': {
+              stroke: theme.palette.primary.light
+            }
           },
-          "& .MuiChip-label": {
-            lineHeight: 0,
-          },
+          '& .MuiChip-label': {
+            lineHeight: 0
+          }
         }}
         icon={
           <Avatar
-            src={""}
+            src={''}
             sx={{
               ...theme.typography.mediumAvatar,
-              margin: "8px 0 8px 8px !important",
-              cursor: "pointer",
+              margin: '8px 0 8px 8px !important',
+              fontFamily: 'Folks',
+              cursor: 'pointer'
             }}
             ref={anchorRef}
-            aria-controls={open ? "menu-list-grow" : undefined}
+            aria-controls={open ? 'menu-list-grow' : undefined}
             aria-haspopup="true"
             color="inherit"
           />
         }
-        label={
-          <IconSettings
-            stroke={1.5}
-            size="1.5rem"
-            color={theme.palette.primary.main}
-          />
-        }
+        label={<IconSettings stroke={1.5} size="1.5rem" color={theme.palette.primary.main} />}
         variant="outlined"
         ref={anchorRef}
-        aria-controls={open ? "menu-list-grow" : undefined}
+        aria-controls={open ? 'menu-list-grow' : undefined}
         aria-haspopup="true"
         onClick={handleToggle}
         color="primary"
@@ -140,90 +135,78 @@ export default function ProfileSection() {
         popperOptions={{
           modifiers: [
             {
-              name: "offset",
+              name: 'offset',
               options: {
-                offset: [0, 14],
-              },
-            },
-          ],
+                offset: [0, 14]
+              }
+            }
+          ]
         }}
       >
         {({ TransitionProps }) => (
           <MaterialTransitions in={open} {...TransitionProps}>
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
-                <MainCard
-                  border={false}
-                  elevation={16}
-                  content={false}
-                  boxShadow
-                  shadow={theme.shadows[16]}
-                >
+                <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
                   <Box sx={{ p: 2 }}>
                     <Stack>
                       <Stack direction="row" spacing={0.5} alignItems="center">
-                        <Typography variant="h4">
-                          {"User"}
+                        <Typography variant="h4" sx={{ fontFamily: 'Folks' }}>
+                          {'User'}
                         </Typography>
                       </Stack>
-                      <Typography variant="subtitle2">
+                      <Typography variant="subtitle2" sx={{ fontFamily: 'Folks' }}>
                         User
                       </Typography>
                     </Stack>
                   </Box>
-                  
+
                   <Divider />
                   <PerfectScrollbar
                     style={{
-                      height: "100%",
-                      maxHeight: "calc(100vh - 250px)",
-                      overflowX: "hidden",
+                      height: '100%',
+                      maxHeight: 'calc(100vh - 250px)',
+                      overflowX: 'hidden'
                     }}
                   >
                     <Box sx={{ p: 2 }}>
                       <List
                         component="nav"
                         sx={{
-                          width: "100%",
+                          width: '100%',
                           maxWidth: 350,
                           minWidth: 300,
                           backgroundColor: theme.palette.background.paper,
-                          borderRadius: "10px",
-                          [theme.breakpoints.down("md")]: {
-                            minWidth: "100%",
+                          borderRadius: '10px',
+                          [theme.breakpoints.down('md')]: {
+                            minWidth: '100%'
                           },
-                          "& .MuiListItemButton-root": {
-                            mt: 0.5,
-                          },
+                          '& .MuiListItemButton-root': {
+                            mt: 0.5
+                          }
                         }}
                       >
                         <ListItemButton
                           sx={{
-                            borderRadius: `${sidebarReducer.borderRadius}px`,
+                            borderRadius: `${sidebarReducer.borderRadius}px`
                           }}
-                          selected={
-                            location.pathname.includes("profile") &&
-                            !isLogoutProcess
-                          }
-                          onClick={(event) =>
-                            handleListItemClick(
-                              event,
-                              '/profile',
-                            )
-                          }
+                          selected={location.pathname.includes('profile') && !isLogoutProcess}
+                          onClick={(event) => handleListItemClick(event, '/profile')}
                         >
                           <ListItemIcon>
                             <IconUser stroke={1.5} size="1.3rem" />
                           </ListItemIcon>
                           <ListItemText
                             primary={
-                              <Typography variant="body2">Profile</Typography>
+                              <Typography variant="body2" sx={{ fontFamily: 'Folks' }}>
+                                Profile
+                              </Typography>
                             }
                           />
                         </ListItemButton>
                         <ListItemButton
                           sx={{
-                            borderRadius: `${sidebarReducer.borderRadius}px`,
+                            borderRadius: `${sidebarReducer.borderRadius}px`
                           }}
                           selected={isLogoutProcess}
                           onClick={handleLogout}
@@ -233,7 +216,9 @@ export default function ProfileSection() {
                           </ListItemIcon>
                           <ListItemText
                             primary={
-                              <Typography variant="body2">Logout</Typography>
+                              <Typography variant="body2" sx={{ fontFamily: 'Folks' }}>
+                                Logout
+                              </Typography>
                             }
                           />
                         </ListItemButton>
@@ -246,10 +231,7 @@ export default function ProfileSection() {
           </MaterialTransitions>
         )}
       </Popper>
-      <AlertToast
-        description={alertDescription}
-        setDescription={setAlertDescription}
-      />
+      <AlertToast description={alertDescription} setDescription={setAlertDescription} />
     </>
   );
 }

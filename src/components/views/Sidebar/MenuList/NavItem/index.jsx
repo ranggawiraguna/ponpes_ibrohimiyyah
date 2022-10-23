@@ -62,13 +62,17 @@ const NavItem = ({ item, level }) => {
       <ListItemIcon sx={{ my: 'auto', minWidth: !item?.icon ? 18 : 36 }}>{itemIcon}</ListItemIcon>
       <ListItemText
         primary={
-          <Typography variant={sidebarReducer.isOpen.findIndex((id) => id === item.id) > -1 ? 'h5' : 'body1'} color="inherit">
+          <Typography
+            variant={sidebarReducer.isOpen.findIndex((id) => id === item.id) > -1 ? 'h5' : 'body1'}
+            color="inherit"
+            sx={{ fontFamily: 'Folks' }}
+          >
             {item.title}
           </Typography>
         }
         secondary={
           item.caption && (
-            <Typography variant="caption" sx={{ ...theme.typography.subMenuCaption }} display="block" gutterBottom>
+            <Typography variant="caption" sx={{ ...theme.typography.subMenuCaption, fontFamily: 'Folks' }} display="block" gutterBottom>
               {item.caption}
             </Typography>
           )

@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import LogoSection from '../../elements/LogoSection';
+import LogoIcon from 'assets/image//logo-icon.png';
 import SearchSection from './SearchSection';
 import ProfileSection from './ProfileSection';
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Box, ButtonBase } from '@mui/material';
 import { IconMenu2 } from '@tabler/icons';
+import { Link } from 'react-router-dom';
 
 const Header = ({ handleLeftDrawerToggle }) => {
   const theme = useTheme();
@@ -21,7 +22,14 @@ const Header = ({ handleLeftDrawerToggle }) => {
         }}
       >
         <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
-          <LogoSection />
+          <Link className="pointer flexNullCenter" to="/" smooth={true}>
+            <img src={LogoIcon} alt="" width={35} style={{ marginBottom: 3 }} />
+            <h1 style={{ fontSize: 11, marginLeft: '10px', lineHeight: 1.1 }} className="bold">
+              Pondok Pesantren
+              <br />
+              Al-Qur'an Ibrohimiyyah
+            </h1>
+          </Link>
         </Box>
         <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>
           <Avatar

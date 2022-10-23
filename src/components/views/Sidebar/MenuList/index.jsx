@@ -1,41 +1,35 @@
-import { Typography } from "@mui/material";
-import NavGroup from "./NavGroup";
-import sekertarisSidebar from "config/menu/SekertarisSidebar";
-import guruSidebar from "config/menu/GuruSidebar";
-import santriSidebar from "config/menu/SantriSidebar";
-import { useLocation } from "react-router";
+import { Typography } from '@mui/material';
+import NavGroup from './NavGroup';
+import sekertarisSidebar from 'config/menu/SekertarisSidebar';
+import guruSidebar from 'config/menu/GuruSidebar';
+import santriSidebar from 'config/menu/SantriSidebar';
+import { useLocation } from 'react-router';
 
 export default function MenuList(props) {
   const location = useLocation();
 
-  const getMenu = ()=>{
-    if (location.pathname.includes("guru")) {
+  const getMenu = () => {
+    if (location.pathname.includes('guru')) {
       return guruSidebar;
-    } else if (location.pathname.includes("sekertaris")) {
+    } else if (location.pathname.includes('sekertaris')) {
       return sekertarisSidebar;
-    } else if (location.pathname.includes("santri")) {
+    } else if (location.pathname.includes('santri')) {
       return santriSidebar;
     } else {
-      return ({
-        items: [],
-      });
+      return {
+        items: []
+      };
     }
-  }
+  };
 
   const navItems = getMenu().items.map((item, index) => {
     switch (item.type) {
-      case "group":
-        return (
-          <NavGroup
-            key={item.id}
-            isLastIndex={index === getMenu().items.length - 1}
-            item={item}
-          />
-        );
+      case 'group':
+        return <NavGroup key={item.id} isLastIndex={index === getMenu().items.length - 1} item={item} />;
 
       default:
         return (
-          <Typography key={item.id} variant="h6" color="error" align="center">
+          <Typography key={item.id} variant="h6" color="error" align="center" sx={{ fontFamily: 'Folks' }}>
             Menu Items Error
           </Typography>
         );

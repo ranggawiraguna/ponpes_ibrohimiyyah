@@ -72,13 +72,13 @@ const NavCollapse = ({ menu, level }) => {
         <ListItemIcon sx={{ my: 'auto', minWidth: !menu.icon ? 18 : 36 }}>{menuIcon}</ListItemIcon>
         <ListItemText
           primary={
-            <Typography variant={selected === menu.id ? 'h5' : 'body1'} color="inherit" sx={{ my: 'auto' }}>
+            <Typography variant={selected === menu.id ? 'h5' : 'body1'} color="inherit" sx={{ my: 'auto', fontFamily: 'Folks' }}>
               {menu.title}
             </Typography>
           }
           secondary={
             menu.caption && (
-              <Typography variant="caption" sx={{ ...theme.typography.subMenuCaption }} display="block" gutterBottom>
+              <Typography variant="caption" sx={{ ...theme.typography.subMenuCaption, fontFamily: 'Folks' }} display="block" gutterBottom>
                 {menu.caption}
               </Typography>
             )

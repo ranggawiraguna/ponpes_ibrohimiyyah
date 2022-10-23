@@ -7,6 +7,7 @@ const PopperStyle = styled(Popper, { shouldForwardProp })(({ theme }) => ({
   width: '99%',
   top: '-55px !important',
   padding: '0 12px',
+  fontFamily: 'Folks',
   [theme.breakpoints.down('sm')]: {
     padding: '0 10px'
   }
@@ -17,8 +18,10 @@ const OutlineInputStyle = styled(OutlinedInput, { shouldForwardProp })(({ theme 
   marginLeft: 16,
   paddingLeft: 16,
   paddingRight: 16,
+  fontFamily: 'Folks',
   '& input': {
     background: 'transparent !important',
+    fontFamily: 'Folks',
     paddingLeft: '4px !important'
   },
   [theme.breakpoints.down('lg')]: {

@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import MenuList from './MenuList';
-import LogoSection from '../../elements/LogoSection';
+import LogoIcon from 'assets/image/logo-icon.png';
 import { useTheme } from '@mui/material/styles';
 import { Box, Drawer, useMediaQuery } from '@mui/material';
 import { BrowserView, MobileView } from 'react-device-detect';
 import { drawerWidth } from 'config/theme/Constant';
+import { Link } from 'react-router-dom';
 
 const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
   const theme = useTheme();
@@ -15,7 +16,14 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
     <>
       <Box sx={{ display: { xs: 'block', md: 'none' } }}>
         <Box sx={{ display: 'flex', p: 2, mx: 'auto' }}>
-          <LogoSection />
+          <Link className="pointer flexNullCenter" to="/" smooth={true}>
+            <img src={LogoIcon} alt="" width={35} style={{ marginBottom: 2 }} />
+            <h1 style={{ fontSize: 12, marginLeft: '10px', lineHeight: 1.1 }} className="bold">
+              Pondok Pesantren
+              <br />
+              Al-Qur'an Ibrohimiyyah
+            </h1>
+          </Link>
         </Box>
       </Box>
       <BrowserView>
@@ -23,6 +31,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
           component="div"
           style={{
             height: !matchUpMd ? 'calc(100vh - 56px)' : 'calc(100vh - 88px)',
+            fontFamily: 'Folks',
             paddingLeft: '16px',
             paddingRight: '16px'
           }}
@@ -52,6 +61,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             background: theme.palette.background.default,
+            fontFamily: 'Folks',
             color: theme.palette.text.primary,
             borderRight: 'none',
             [theme.breakpoints.up('md')]: {
