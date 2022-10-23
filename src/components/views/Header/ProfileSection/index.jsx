@@ -43,7 +43,7 @@ export default function ProfileSection() {
 
   const handleLogout = async () => {
     if (!isLogoutProcess) {
-      //
+      navigate("/masuk");
     }
   };
 
@@ -62,7 +62,7 @@ export default function ProfileSection() {
         type: MENU_OPEN,
         id: route.split("/")[route.split("/").length - 1],
       });
-      navigate(route);
+      navigate(location.pathname.split("/")[1] + route);
     }
   };
 
