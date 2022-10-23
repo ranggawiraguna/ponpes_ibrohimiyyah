@@ -1,4 +1,4 @@
-import LogoIcon from 'assets/img/logo-icon-text.png';
+import LogoIcon from 'assets/image//logo-icon-text.png';
 import { Link } from 'react-router-dom';
 import { ButtonBase } from '@mui/material';
 

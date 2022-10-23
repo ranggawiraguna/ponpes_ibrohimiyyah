@@ -111,7 +111,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 table {
@@ -133,7 +133,7 @@ input:-webkit-autofill {
 body {
   background: #fff;
   color: #0b093b;
-  font-family: "Khula", sans-serif;
+  font-family: 'Folks', sans-serif;
   overflow-x: hidden;
   font-size: 16px;
   font-weight: 400;

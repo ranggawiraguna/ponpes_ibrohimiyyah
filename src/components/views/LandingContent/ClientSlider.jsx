@@ -1,12 +1,12 @@
-import React from "react";
-import Slider from "react-slick";
-import styled from "styled-components";
-import ClientLogo01 from "assets/img/clients/logo01.svg";
-import ClientLogo02 from "assets/img/clients/logo02.svg";
-import ClientLogo03 from "assets/img/clients/logo03.svg";
-import ClientLogo04 from "assets/img/clients/logo04.svg";
-import ClientLogo05 from "assets/img/clients/logo05.svg";
-import ClientLogo06 from "assets/img/clients/logo06.svg";
+import React from 'react';
+import Slider from 'react-slick';
+import styled from 'styled-components';
+import ClientLogo01 from 'assets/image//clients/logo01.svg';
+import ClientLogo02 from 'assets/image//clients/logo02.svg';
+import ClientLogo03 from 'assets/image//clients/logo03.svg';
+import ClientLogo04 from 'assets/image//clients/logo04.svg';
+import ClientLogo05 from 'assets/image//clients/logo05.svg';
+import ClientLogo06 from 'assets/image//clients/logo06.svg';
 
 export default function ClientSlider() {
   const settings = {
@@ -20,24 +20,24 @@ export default function ClientSlider() {
         breakpoint: 1024,
         settings: {
           slidesToShow: 4,
-          slidesToScroll: 2,
-        },
+          slidesToScroll: 2
+        }
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 1,
-        },
+          slidesToScroll: 1
+        }
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
   return (
     <div>

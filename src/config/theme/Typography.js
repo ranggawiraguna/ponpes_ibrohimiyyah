@@ -5,7 +5,6 @@
 
 export default function themeTypography(theme) {
   return {
-    fontFamily: theme?.sidebarReducer?.fontFamily,
     h6: {
       fontWeight: 500,
       color: theme.heading,

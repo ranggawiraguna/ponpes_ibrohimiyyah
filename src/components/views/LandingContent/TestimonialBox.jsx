@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import QuoteIcon from "assets/svg/Quotes";
+import React from 'react';
+import styled from 'styled-components';
+import QuoteIcon from 'assets/icon/Quotes';
 
 export default function TestimonialBox({ text, author }) {
   return (
@@ -8,10 +8,10 @@ export default function TestimonialBox({ text, author }) {
       <QuoteWrapper>
         <QuoteIcon />
       </QuoteWrapper>
-      <p className="whiteColor font13" style={{ paddingBottom: "30px" }}>
+      <p className="whiteColor font13" style={{ paddingBottom: '30px' }}>
         {text}
       </p>
-      <p className="orangeColor font13" style={{ alignSelf: "flex-end" }}>
+      <p className="orangeColor font13" style={{ alignSelf: 'flex-end' }}>
         <em>{author}</em>
       </p>
     </Wrapper>
