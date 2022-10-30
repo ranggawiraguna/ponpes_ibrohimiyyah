@@ -81,6 +81,7 @@ export default function RegisterPage() {
     schoolClass: '',
     schoolDate: '',
     phoneNumber: '',
+    email: '',
     fullnameFather: '',
     statusFather: '',
     placeAndDateOfBirthFather: '',

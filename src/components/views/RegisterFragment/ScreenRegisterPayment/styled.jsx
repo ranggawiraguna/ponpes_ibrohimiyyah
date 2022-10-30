@@ -17,7 +17,50 @@ export default styled(BoxTransition)(({ theme }) => ({
     '&:first-of-type': {
       flex: 1,
       display: 'flex',
-      marginBottom: 40
+      justifyContent: 'center',
+      marginBottom: 40,
+      '& > div': {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        gap: 30,
+        '& > div:nth-of-type(1)': {
+          height: 'fit-content',
+          borderRadius: 10,
+          outline: '3px solid gray',
+          backgroundColor: 'white',
+          padding: '20px 30px',
+          '& > table': {
+            '& > tr': {
+              '& > td:nth-of-type(2)': {
+                padding: '0 15px'
+              }
+            }
+          }
+        },
+        '& > div:nth-of-type(2)': {
+          borderRadius: 3,
+          outline: '2px solid rgba(0,0,0,0.2)',
+          backgroundColor: 'white',
+          '& > label': {
+            '& > span': {
+              cursor: 'pointer',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 2,
+              padding: 15,
+              '& svg': {
+                fill: 'rgba(0,0,0,0.5)'
+              },
+              '& p': {
+                fontSize: 12,
+                color: 'rgba(0,0,0,0.5)'
+              }
+            }
+          }
+        }
+      }
     },
     '&:last-of-type': {
       display: 'flex',
@@ -34,9 +77,17 @@ export default styled(BoxTransition)(({ theme }) => ({
 
   //Mobile Breakpoint =======================================================================================================================================================================
   [theme.breakpoints.down('md')]: {
+    '& > h2': {
+      fontSize: 18,
+      padding: '0px 20px 30px 0px'
+    },
     '& > div': {
-      '&:first-of-type': {
-        //
+      '& > div': {
+        '& > div:nth-of-type(1)': {
+          '& > h3': {
+            fontSize: 17
+          }
+        }
       }
     }
   },
@@ -45,7 +96,11 @@ export default styled(BoxTransition)(({ theme }) => ({
   //Laptop+ Breakpoint ======================================================================================================================================================================
   [theme.breakpoints.up('md')]: {
     '& > div': {
-      '&:first-of-type': {}
+      '&:first-of-type': {
+        '& > div': {
+          maxWidth: '60%'
+        }
+      }
     }
   }
   //=========================================================================================================================================================================================

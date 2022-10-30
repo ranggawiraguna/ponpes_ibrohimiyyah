@@ -23,7 +23,7 @@ export default function TopNavbar() {
       {sidebarOpen && <Backdrop toggleSidebar={toggleSidebar} />}
       <Wrapper className="flexCenter animate blueLightBg" style={y > 100 ? { height: '70px' } : { height: '85px' }}>
         <NavInner className="container flexSpaceCenter">
-          <Link className="pointer flexNullCenter" to="/" smooth={true}>
+          <Link className="pointer flexNullCenter" to="/">
             <img src={LogoIcon} alt="" width={60} style={{ marginBottom: 5 }} />
             <h1 style={{ marginLeft: '15px', lineHeight: 1.1 }} className="font20 bold">
               Pondok Pesantren

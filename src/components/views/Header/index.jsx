@@ -22,7 +22,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
         }}
       >
         <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
-          <Link className="pointer flexNullCenter" to="/" smooth={true}>
+          <Link className="pointer flexNullCenter" to="/">
             <img src={LogoIcon} alt="" width={35} style={{ marginBottom: 3 }} />
             <h1 style={{ fontSize: 11, marginLeft: '10px', lineHeight: 1.1 }} className="bold">
               Pondok Pesantren

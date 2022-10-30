@@ -14,7 +14,7 @@ export default styled(BoxTransition)(({ theme }) => ({
   '& > div': {
     '&:first-of-type': {
       display: 'flex',
-      marginBottom: 40,
+      marginBottom: 20,
       padding: '0 20px',
       '& > div': {
         height: 'max-content',
@@ -25,6 +25,16 @@ export default styled(BoxTransition)(({ theme }) => ({
         '& input': {
           width: '100%'
         }
+      }
+    },
+    '&:nth-of-type(2)': {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 20,
+      padding: '0 20px 50px',
+      alignItems: 'stretch',
+      '& input': {
+        width: '100%'
       }
     },
     '&:last-of-type': {

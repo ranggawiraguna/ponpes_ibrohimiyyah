@@ -135,7 +135,7 @@ export default styled(Box)(({ theme }) => ({
         fontSize: '3.2vw'
       },
       '& > button:last-child': {
-        fontSize: '3vw',
+        fontSize: '3.5vw',
         marginTop: '3vw',
         padding: '1vw 10vw'
       }

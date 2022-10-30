@@ -25,6 +25,9 @@ export default function FormBiodataSantri({ onChange, onChangeStep }) {
         </Box>
       </Box>
       <Box>
+        <BootstrapInput id="input-email" label="Email" onChange={onChange('phoneNumber')} />
+      </Box>
+      <Box>
         <Button
           variant="contained"
           onClick={() => {

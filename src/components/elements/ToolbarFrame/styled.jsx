@@ -28,9 +28,17 @@ export default styled(Box)(({ theme }) => ({
   [theme.breakpoints.only('xs')]: {
     padding: '5vw 5vw 0',
 
+    '& > a': {
+      '& > img': {
+        width: 40
+      },
+      '& > h1': {
+        fontSize: '3.5vw'
+      }
+    },
     '& button': {
       borderRadius: '1.2vw',
-      fontSize: '2.5vw',
+      fontSize: '3vw',
       padding: '1vw 3.2vw'
     },
     '& svg': {

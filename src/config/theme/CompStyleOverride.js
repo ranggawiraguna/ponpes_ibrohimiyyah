@@ -1,9 +1,17 @@
 export default function componentStyleOverrides(theme) {
   const bgColor = theme.colors?.grey50;
   return {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'Folks'
+        }
+      }
+    },
     MuiButton: {
       styleOverrides: {
         root: {
+          fontFamily: 'Folks',
           fontWeight: 500,
           borderRadius: '4px'
         }
@@ -15,6 +23,7 @@ export default function componentStyleOverrides(theme) {
       },
       styleOverrides: {
         root: {
+          fontFamily: 'Folks',
           backgroundImage: 'none'
         },
         rounded: {
@@ -25,6 +34,7 @@ export default function componentStyleOverrides(theme) {
     MuiCardHeader: {
       styleOverrides: {
         root: {
+          fontFamily: 'Folks',
           color: theme.colors?.textDark,
           padding: '24px'
         },
@@ -36,6 +46,7 @@ export default function componentStyleOverrides(theme) {
     MuiCardContent: {
       styleOverrides: {
         root: {
+          fontFamily: 'Folks',
           padding: '24px'
         }
       }
@@ -43,6 +54,7 @@ export default function componentStyleOverrides(theme) {
     MuiCardActions: {
       styleOverrides: {
         root: {
+          fontFamily: 'Folks',
           padding: '24px'
         }
       }
@@ -50,6 +62,7 @@ export default function componentStyleOverrides(theme) {
     MuiListItemButton: {
       styleOverrides: {
         root: {
+          fontFamily: 'Folks',
           color: theme.darkTextPrimary,
           paddingTop: '10px',
           paddingBottom: '10px',
@@ -76,6 +89,7 @@ export default function componentStyleOverrides(theme) {
     MuiListItemIcon: {
       styleOverrides: {
         root: {
+          fontFamily: 'Folks',
           color: theme.darkTextPrimary,
           minWidth: '36px'
         }
@@ -102,6 +116,7 @@ export default function componentStyleOverrides(theme) {
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
+          fontFamily: 'Folks',
           background: bgColor,
 
           '& .MuiOutlinedInput-notchedOutline': {
@@ -134,6 +149,7 @@ export default function componentStyleOverrides(theme) {
     MuiSlider: {
       styleOverrides: {
         root: {
+          fontFamily: 'Folks',
           '&.Mui-disabled': {
             color: theme.colors?.grey300
           }
@@ -150,6 +166,7 @@ export default function componentStyleOverrides(theme) {
     MuiDivider: {
       styleOverrides: {
         root: {
+          fontFamily: 'Folks',
           borderColor: theme.divider,
           opacity: 1
         }
@@ -158,6 +175,7 @@ export default function componentStyleOverrides(theme) {
     MuiAvatar: {
       styleOverrides: {
         root: {
+          fontFamily: 'Folks',
           color: theme.colors?.primaryDark,
           background: theme.colors?.primary200
         }
@@ -166,6 +184,7 @@ export default function componentStyleOverrides(theme) {
     MuiChip: {
       styleOverrides: {
         root: {
+          fontFamily: 'Folks',
           '&.MuiChip-deletable .MuiChip-deleteIcon': {
             color: 'inherit'
           }

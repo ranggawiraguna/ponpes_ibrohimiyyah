@@ -1,21 +1,24 @@
 {
   "files": {
     "main.css": "/static/css/main.77bedb8b.css",
-    "main.js": "/static/js/main.dee5f778.js",
+    "main.js": "/static/js/main.840a9b9a.js",
+    "static/media/TahunBaruIslam.png": "/static/media/TahunBaruIslam.a5eb186aeb8301e6c45b.png",
+    "static/media/TabunganQurban.jpeg": "/static/media/TabunganQurban.e228a84be0716e818241.jpeg",
+    "static/media/5.png": "/static/media/5.715fb449e0d2ea8154b2.png",
     "static/media/logo-icon.png": "/static/media/logo-icon.21f1824a13dbbc33febf.png",
+    "static/media/1.jpg": "/static/media/1.333a50c8d219fd5aa73e.jpg",
+    "static/media/4.jpg": "/static/media/4.a0b8c85f7c7d17fcf10c.jpg",
+    "static/media/3.jpg": "/static/media/3.99768d5a3336d5356383.jpg",
+    "static/media/2.jpg": "/static/media/2.08ed898827323a9de1e4.jpg",
     "static/media/location-map.png": "/static/media/location-map.a871238b80c67869ae59.png",
+    "static/media/6.jpg": "/static/media/6.15a3c2b355404544cc77.jpg",
     "static/media/FolksBlack.ttf": "/static/media/FolksBlack.3feb0b1ed24e53e46412.ttf",
     "static/media/FolksHeavy.ttf": "/static/media/FolksHeavy.730e6ac08c711bbb5546.ttf",
     "static/media/FolksLight.ttf": "/static/media/FolksLight.29b769986ab714a3ffcc.ttf",
     "static/media/FolksRegular.ttf": "/static/media/FolksRegular.048adadcdda27c67cfc8.ttf",
     "static/media/FolksBold.ttf": "/static/media/FolksBold.b3744782b9538e486e6e.ttf",
+    "static/media/BukaPuasa.jpeg": "/static/media/BukaPuasa.588eac4b34ade3a94882.jpeg",
     "static/media/ProfileChangePassword.svg": "/static/media/ProfileChangePassword.ea6d3d1f78821b02d99424911bb29b16.svg",
-    "static/media/logo02.svg": "/static/media/logo02.ef3dc4768d89bf758521d844dc1406e2.svg",
-    "static/media/logo01.svg": "/static/media/logo01.f0f3765fa14836d794809c38f220dbb8.svg",
-    "static/media/logo03.svg": "/static/media/logo03.ed39a486d651c4499e1cc1e7717dfc41.svg",
-    "static/media/logo06.svg": "/static/media/logo06.7fcfefcaa956903796a1150cbef55634.svg",
-    "static/media/logo05.svg": "/static/media/logo05.e583f97db1f0a140ca92e3cf84c88b12.svg",
-    "static/media/logo04.svg": "/static/media/logo04.d4601325c6147b5d07ef7a4513368711.svg",
     "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
@@ -23,10 +26,10 @@
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
     "main.77bedb8b.css.map": "/static/css/main.77bedb8b.css.map",
-    "main.dee5f778.js.map": "/static/js/main.dee5f778.js.map"
+    "main.840a9b9a.js.map": "/static/js/main.840a9b9a.js.map"
   },
   "entrypoints": [
     "static/css/main.77bedb8b.css",
-    "static/js/main.dee5f778.js"
+    "static/js/main.840a9b9a.js"
   ]
 }

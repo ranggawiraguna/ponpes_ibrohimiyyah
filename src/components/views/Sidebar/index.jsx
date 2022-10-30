@@ -16,7 +16,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
     <>
       <Box sx={{ display: { xs: 'block', md: 'none' } }}>
         <Box sx={{ display: 'flex', p: 2, mx: 'auto' }}>
-          <Link className="pointer flexNullCenter" to="/" smooth={true}>
+          <Link className="pointer flexNullCenter" to="/">
             <img src={LogoIcon} alt="" width={35} style={{ marginBottom: 2 }} />
             <h1 style={{ fontSize: 12, marginLeft: '10px', lineHeight: 1.1 }} className="bold">
               Pondok Pesantren
