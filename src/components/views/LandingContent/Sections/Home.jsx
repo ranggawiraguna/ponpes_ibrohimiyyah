@@ -4,8 +4,10 @@ import CardArticle from 'components/elements/CardArticle';
 import { Box, styled as muiStyled } from '@mui/material';
 import ArticleTabunganQurban from 'assets/content/article/TabunganQurban.jpeg';
 import ArticleBukaPuasa from 'assets/content/article/BukaPuasa.jpeg';
-import ArticleTahunBaruIslam from 'assets/content/article/TahunBaruIslam.png';
-import ArticleExampleArticle from 'assets/content/article/ExampleArticle.png';
+import ArticleTahunBaruIslam from 'assets/content/article/TahunBaruIslam.jpg';
+import ArticleTeamHadroh from 'assets/content/article/TeamHadroh.jpg';
+import Article17Agustus from 'assets/content/article/17Agustus.jpg';
+import ArticleShalawatNariyah from 'assets/content/article/ShalawatNariyah.jpg';
 
 const Component = muiStyled(Box)(({ theme }) => ({
   width: '100%',
@@ -46,19 +48,19 @@ export default function Home() {
           image={ArticleBukaPuasa}
         />
         <CardArticle
-          title="Article 4"
-          description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci fugit consequuntur minima nobis, harum facilis dolorem incidunt officiis iste unde?"
-          image={ArticleExampleArticle}
+          title="17 Agustus"
+          description="Kami selaku pengerus ponpes ibrohimiyyah mengadakan rutinitas 17 Agustus untuk memperingati hari kemerdekaan Indonesia bersama semua santri"
+          image={Article17Agustus}
         />
         <CardArticle
-          title="Article 5"
-          description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci fugit consequuntur minima nobis, harum facilis dolorem incidunt officiis iste unde?"
-          image={ArticleExampleArticle}
+          title="Team Hadroh"
+          description="Kami sebagai Team Hadroh Ibrohimiyyah selalu menyiarkan syair syair tentang kecintaan kita kepada Nabi Muhammad SAW"
+          image={ArticleTeamHadroh}
         />
         <CardArticle
-          title="Article 6"
-          description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci fugit consequuntur minima nobis, harum facilis dolorem incidunt officiis iste unde?"
-          image={ArticleExampleArticle}
+          title="Shalawat Nariyah"
+          description="Kami seluruh santri ibrohimiyyah mengadakan rutinitas shalawat Nariyah untuk terus sambungan dan menambahkan rasa cinta kepada Nabi Muhammad SAW"
+          image={ArticleShalawatNariyah}
         />
       </Component>
     </Wrapper>

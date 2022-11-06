@@ -92,7 +92,9 @@ export default function RegisterPage() {
     placeAndDateOfBirthMother: '',
     workMother: '',
     phoneNumberMother: '',
-    showPassword: false
+    addressParent: '',
+    purpose: '',
+    paymentPhotoUrl: null
   });
 
   const [indexStep, setIndexStep] = useState(0);
@@ -112,13 +114,56 @@ export default function RegisterPage() {
                 {(() => {
                   switch (indexStep) {
                     case 0:
-                      return <FormBiodataSantri onChange={handleChange} onChangeStep={setIndexStep} />;
+                      return (
+                        <FormBiodataSantri
+                          values={{
+                            fullname: values.fullname,
+                            placeAndDateOfBirth: values.placeAndDateOfBirth,
+                            address: values.address,
+                            gender: values.gender,
+                            childOrder: values.childOrder,
+                            numberOfSiblings: values.numberOfSiblings,
+                            schoolName: values.schoolName,
+                            schoolClass: values.schoolClass,
+                            schoolDate: values.schoolDate,
+                            phoneNumber: values.phoneNumber,
+                            email: values.email
+                          }}
+                          onChange={handleChange}
+                          onChangeStep={setIndexStep}
+                        />
+                      );
 
                     case 1:
-                      return <FormBiodataOrangTua onChange={handleChange} onChangeStep={setIndexStep} />;
+                      return (
+                        <FormBiodataOrangTua
+                          values={{
+                            fullnameFather: values.fullnameFather,
+                            statusFather: values.statusFather,
+                            placeAndDateOfBirthFather: values.placeAndDateOfBirthFather,
+                            workFather: values.workFather,
+                            phoneNumberFather: values.phoneNumberFather,
+                            fullnameMother: values.fullnameMother,
+                            statusMother: values.statusMother,
+                            placeAndDateOfBirthMother: values.placeAndDateOfBirthMother,
+                            workMother: values.workMother,
+                            phoneNumberMother: values.phoneNumberMother,
+                            addressParent: values.addressParent,
+                            purpose: values.purpose
+                          }}
+                          onChange={handleChange}
+                          onChangeStep={setIndexStep}
+                        />
+                      );
 
                     case 2:
-                      return <ScreenRegisterPayment onChangeStep={setIndexStep} />;
+                      return (
+                        <ScreenRegisterPayment
+                          values={values}
+                          onChangeStep={setIndexStep}
+                          setPayment={(value) => setValues({ ...values, paymentPhotoUrl: value })}
+                        />
+                      );
 
                     default:
                       <></>;

@@ -1,6 +1,30 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Outlet } from "react-router-dom";
+import { useNavigate, Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function ValidateSession(props) {
-  return <Outlet />;
+  let navigate = useNavigate();
+
+  const accountReducer = useSelector((state) => state.accountReducer);
+
+  const [Page, setPage] = useState(<></>);
+  const [sessionChecked, setSessionChecked] = useState(false);
+
+  useEffect(() => {
+    if (accountReducer.isLogin !== null && !sessionChecked) {
+      if (accountReducer.isLogin === false) {
+        navigate('/masuk');
+      } else {
+        if (accountReducer.role === props.role) {
+          setSessionChecked(true);
+          setPage(<Outlet />);
+        } else {
+          navigate('/error');
+        }
+      }
+    }
+  });
+
+  return Page;
 }

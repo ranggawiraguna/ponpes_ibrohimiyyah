@@ -23,8 +23,11 @@ import {
   Stack,
   Typography
 } from '@mui/material';
+import { auth } from 'config/firebase';
+import { signOut } from 'firebase/auth';
 
 export default function ProfileSection() {
+  const accountReducer = useSelector((state) => state.accountReducer);
   const sidebarReducer = useSelector((state) => state.sidebarReducer);
   const theme = useTheme();
   const navigate = useNavigate();
@@ -33,7 +36,7 @@ export default function ProfileSection() {
   const anchorRef = useRef(null);
 
   const [open, setOpen] = useState(false);
-  const [isLogoutProcess] = useState(false);
+  const [isLogoutProcess, setIsLogoutProcess] = useState(false);
   const [alertDescription, setAlertDescription] = useState({
     isOpen: false,
     type: 'info',
@@ -41,12 +44,28 @@ export default function ProfileSection() {
     transitionName: 'slideUp'
   });
 
+  const showAlertToast = (type, text) =>
+    setAlertDescription({
+      ...alertDescription,
+      isOpen: true,
+      type: type,
+      text: text
+    });
+
   const handleLogout = async () => {
     if (!isLogoutProcess) {
-      navigate('/masuk');
+      setIsLogoutProcess(true);
+
+      await signOut(auth)
+        .then(() => {
+          showAlertToast('success', 'Berhasil Logout Akun');
+        })
+        .catch(() => {
+          showAlertToast('error', 'Gagal Logout Akun');
+          setIsLogoutProcess(false);
+        });
     }
   };
-
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
@@ -152,11 +171,11 @@ export default function ProfileSection() {
                     <Stack>
                       <Stack direction="row" spacing={0.5} alignItems="center">
                         <Typography variant="h4" sx={{ fontFamily: 'Folks' }}>
-                          {'User'}
+                          {accountReducer.name}
                         </Typography>
                       </Stack>
                       <Typography variant="subtitle2" sx={{ fontFamily: 'Folks' }}>
-                        User
+                        {accountReducer.role.charAt(0).toUpperCase() + accountReducer.role.slice(1)}
                       </Typography>
                     </Stack>
                   </Box>

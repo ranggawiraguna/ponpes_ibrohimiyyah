@@ -1,17 +1,21 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography, useMediaQuery } from '@mui/material';
+import Lottie from 'lottie-react';
 import FragmentComponent from './styled';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import AnimRegisterSuccess from 'assets/anim/register-success.json';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography, useMediaQuery } from '@mui/material';
 import { forwardRef, Fragment, useState } from 'react';
 import { useTheme } from '@emotion/react';
-import Lottie from 'react-lottie';
 import { useNavigate } from 'react-router';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { db, storage } from 'config/firebase';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import AlertToast from 'components/elements/AlertToast';
+import AnimCheckGreen from 'assets/anim/check-green.json';
 
 const DialogFeedbackRegister = forwardRef(({ open, onClose, ...others }, ref) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
   const handleClose = () => {
     onClose();
     navigate('/masuk');
@@ -34,17 +38,7 @@ const DialogFeedbackRegister = forwardRef(({ open, onClose, ...others }, ref) =>
             minHeight={fullScreen ? '100%' : 0}
           >
             <Box sx={fullScreen ? { width: '70%' } : { width: 200 }}>
-              <Lottie
-                isClickToPauseDisabled={true}
-                options={{
-                  loop: true,
-                  autoplay: true,
-                  animationData: AnimRegisterSuccess,
-                  rendererSettings: {
-                    preserveAspectRatio: 'xMidYMid slice'
-                  }
-                }}
-              />
+              <Lottie animationData={AnimRegisterSuccess} loop={true} autoPlay={true} />
             </Box>
             <Typography component="p" variant="p" sx={{ textAlign: 'center', padding: fullScreen ? '0 20px' : 0 }}>
               Silahkan periksa email pendaftaran santri untuk mendapatkan informasi selanjutnya
@@ -67,21 +61,84 @@ const DialogFeedbackRegister = forwardRef(({ open, onClose, ...others }, ref) =>
   );
 });
 
-export default function ScreenRegisterPayment({ onChange, onChangeStep }) {
-  const [selectedImage, setSelectedImage] = useState(null);
-
+export default function ScreenRegisterPayment({ thisRef, values, onChangeStep, setPayment }) {
   const [openDialogFeedbackRegister, setOpenDialogFeedbackRegister] = useState(false);
+  const [isCreateFormRegister, setIsCreateFormRegister] = useState(false);
 
-  const setProfileImage = (value) => {
-    if (selectedImage) {
-      URL.revokeObjectURL(selectedImage);
-    }
-    setSelectedImage(value);
-  };
+  const [alertDescription, setAlertDescription] = useState({
+    isOpen: false,
+    type: 'info',
+    text: '',
+    transitionName: 'slideUp'
+  });
+
+  const showAlertToast = (type, text) =>
+    setAlertDescription({
+      ...alertDescription,
+      isOpen: true,
+      type: type,
+      text: text
+    });
 
   const handleOnChangeImage = (event) => {
     if (event.target?.files?.[0]) {
-      setProfileImage(event.target?.files?.[0]);
+      if (values.paymentPhotoUrl) {
+        URL.revokeObjectURL(values.paymentPhotoUrl);
+      }
+      setPayment(event.target?.files?.[0]);
+    }
+  };
+
+  const handleCreateFormRegister = async () => {
+    if (!isCreateFormRegister) {
+      setIsCreateFormRegister(true);
+
+      const docRef = doc(collection(db, 'pendaftaran'));
+      let result;
+      let data = {};
+      if (values.paymentPhotoUrl) {
+        data = {
+          ...values,
+          paymentPhotoUrl: values.paymentPhotoUrl
+        };
+      } else {
+        data = { ...values };
+      }
+
+      if (data.paymentPhotoUrl) {
+        try {
+          const snapshot = await uploadBytes(ref(storage, `/pendaftaran-bukti-pembayaran/${docRef.id}`), data.paymentPhotoUrl);
+          result = await getDownloadURL(snapshot.ref);
+        } catch (e) {
+          result = null;
+        }
+      } else {
+        result = ' ';
+      }
+
+      if (result) {
+        if (data.paymentPhotoUrl) {
+          data = {
+            ...data,
+            paymentPhotoUrl: result
+          };
+        }
+
+        setDoc(docRef, {
+          ...data,
+          status: 'waitingConfirmation'
+        })
+          .then(() => {
+            setIsCreateFormRegister(true);
+            setOpenDialogFeedbackRegister(true);
+          })
+          .catch(() => {
+            setIsCreateFormRegister(true);
+          });
+      } else {
+        showAlertToast('warning', 'Terjadi kesalahan, silahkan coba kembali');
+        setIsCreateFormRegister(false);
+      }
     }
   };
 
@@ -119,39 +176,54 @@ export default function ScreenRegisterPayment({ onChange, onChangeStep }) {
                 dibawah ini
               </p>
             </Box>
-            <Box>
-              <input
-                sx={{ margin: 0, padding: 0, borderRadius: 1000, width: 60, height: 60 }}
-                hidden
-                id="picture-file"
-                accept="image/*"
-                type="file"
-                onChange={handleOnChangeImage}
-              />
-              <label htmlFor="picture-file">
-                <Button variant="raised" component="span">
-                  <AddPhotoAlternateIcon />
-                  <p>Upload Bukti Pembayaran</p>
-                </Button>
-              </label>
-            </Box>
+            {(() => {
+              return values.paymentPhotoUrl === null ? (
+                <Box className="upload-box">
+                  <input
+                    sx={{ margin: 0, padding: 0, borderRadius: 1000, width: 60, height: 60 }}
+                    hidden
+                    id="picture-file"
+                    accept="image/*"
+                    type="file"
+                    onChange={handleOnChangeImage}
+                  />
+                  <label htmlFor="picture-file">
+                    <Button variant="raised" component="span">
+                      <AddPhotoAlternateIcon />
+                      <p>Upload Bukti Pembayaran</p>
+                    </Button>
+                  </label>
+                </Box>
+              ) : (
+                <Box className="confirmation-box">
+                  <Lottie
+                    ref={thisRef}
+                    animationData={AnimCheckGreen}
+                    loop={false}
+                    autoPlay={true}
+                    style={{
+                      width: 100
+                    }}
+                  />
+                  <Typography component="p" variant="p">
+                    Bukti pembayaran telah di upload
+                  </Typography>
+                </Box>
+              );
+            })()}
           </Box>
         </Box>
         <Box>
           <Button variant="contained" onClick={() => onChangeStep(1)}>
             Sebelumnya
           </Button>
-          <Button
-            variant="contained"
-            onClick={() => {
-              setOpenDialogFeedbackRegister(true);
-            }}
-          >
+          <Button disabled={values.paymentPhotoUrl == null} variant="contained" onClick={handleCreateFormRegister}>
             Kirim & Daftar
           </Button>
         </Box>
       </FragmentComponent>
       <DialogFeedbackRegister open={openDialogFeedbackRegister} onClose={() => setOpenDialogFeedbackRegister(false)} />
+      <AlertToast description={alertDescription} setDescription={setAlertDescription} />
     </Fragment>
   );
 }

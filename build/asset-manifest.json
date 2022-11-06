@@ -1,9 +1,11 @@
 {
   "files": {
     "main.css": "/static/css/main.77bedb8b.css",
-    "main.js": "/static/js/main.840a9b9a.js",
-    "static/media/TahunBaruIslam.png": "/static/media/TahunBaruIslam.a5eb186aeb8301e6c45b.png",
+    "main.js": "/static/js/main.67d78f10.js",
+    "static/media/TahunBaruIslam.jpg": "/static/media/TahunBaruIslam.112bdcee041ed3a7814c.jpg",
+    "static/media/TeamHadroh.jpg": "/static/media/TeamHadroh.45d0ce4e5f24bf7edd1e.jpg",
     "static/media/TabunganQurban.jpeg": "/static/media/TabunganQurban.e228a84be0716e818241.jpeg",
+    "static/media/17Agustus.jpg": "/static/media/17Agustus.07d9be43afd13bc80aad.jpg",
     "static/media/5.png": "/static/media/5.715fb449e0d2ea8154b2.png",
     "static/media/logo-icon.png": "/static/media/logo-icon.21f1824a13dbbc33febf.png",
     "static/media/1.jpg": "/static/media/1.333a50c8d219fd5aa73e.jpg",
@@ -11,6 +13,7 @@
     "static/media/3.jpg": "/static/media/3.99768d5a3336d5356383.jpg",
     "static/media/2.jpg": "/static/media/2.08ed898827323a9de1e4.jpg",
     "static/media/location-map.png": "/static/media/location-map.a871238b80c67869ae59.png",
+    "static/media/ShalawatNariyah.jpg": "/static/media/ShalawatNariyah.bf8de85d22ada2676a61.jpg",
     "static/media/6.jpg": "/static/media/6.15a3c2b355404544cc77.jpg",
     "static/media/FolksBlack.ttf": "/static/media/FolksBlack.3feb0b1ed24e53e46412.ttf",
     "static/media/FolksHeavy.ttf": "/static/media/FolksHeavy.730e6ac08c711bbb5546.ttf",
@@ -26,10 +29,10 @@
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
     "main.77bedb8b.css.map": "/static/css/main.77bedb8b.css.map",
-    "main.840a9b9a.js.map": "/static/js/main.840a9b9a.js.map"
+    "main.67d78f10.js.map": "/static/js/main.67d78f10.js.map"
   },
   "entrypoints": [
     "static/css/main.77bedb8b.css",
-    "static/js/main.840a9b9a.js"
+    "static/js/main.67d78f10.js"
   ]
 }

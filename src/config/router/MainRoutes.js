@@ -13,10 +13,10 @@ import AuthenticationRoutes from './AuthenticationRoutes';
 const MainRoutes = [
   <Route key="Landing Page" path="/" element={<LandingPage />} />,
   <Route key="Authentication Routes" element={<AuthenticationLayout />} children={AuthenticationRoutes} />,
-  <Route key="Content Routes" element={<AccountManager />}>
+  <Route key="Account Manager" element={<AccountManager />}>
     <Route key="Main Layout" element={<MainLayout />}>
       <Route key="Teacher" path="guru" element={<ValidateSession role="guru" />} children={TeacherRoutes} />
-      <Route key="Secrectary" path="sekertaris" element={<ValidateSession role="sekertaris" />} children={SecretaryRoutes} />
+      <Route key="Secrectary" path="sekretaris" element={<ValidateSession role="sekretaris" />} children={SecretaryRoutes} />
       <Route key="Santri" path="santri" element={<ValidateSession role="santri" />} children={SantriRoutes} />
     </Route>
   </Route>,

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import CloseIcon from '@mui/icons-material/Close';
 import IllustrationProfileChangePassword from 'assets/illustration/ProfileChangePassword.svg';
 import AnimWriteLoginForm from 'assets/anim/write-login-form.json';
-import Lottie from 'react-lottie';
+import Lottie from 'lottie-react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { forwardRef, Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -28,17 +28,21 @@ import {
   Typography,
   useMediaQuery
 } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { createSession } from 'utils/redux/reducers/account';
+import { auth } from 'config/firebase';
+import { sendPasswordResetEmail } from 'firebase/auth';
 
 const DialogForgotPassword = forwardRef(({ open, onClose, showAlert, ...others }, ref) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  const [isSendingLinkProcess] = useState(false);
+  const [isSendingLinkProcess, setIsSendingLinkProcess] = useState(false);
 
-  const [inputUsername, setInputUsername] = useState('');
+  const [inputEmail, setInputEmail] = useState('');
 
   const handleChangeInput = (event) => {
-    setInputUsername(event.target.value);
+    setInputEmail(event.target.value);
   };
 
   const handleClose = () => {
@@ -46,13 +50,25 @@ const DialogForgotPassword = forwardRef(({ open, onClose, showAlert, ...others }
       onClose();
       isSendingLinkProcess(false);
       setTimeout(() => {
-        setInputUsername('');
+        setInputEmail('');
       }, 500);
     }
   };
 
   const handleSendLinkReset = async () => {
-    //
+    if (!isSendingLinkProcess) {
+      setIsSendingLinkProcess(true);
+      await sendPasswordResetEmail(auth, inputEmail)
+        .then(() => {
+          showAlert('success', 'Email reset password telah dikirim melalui email terdaftar');
+          handleClose();
+          setIsSendingLinkProcess(false);
+        })
+        .catch((error) => {
+          showAlert('warning', error.toString());
+          setIsSendingLinkProcess(false);
+        });
+    }
   };
 
   return (
@@ -86,7 +102,7 @@ const DialogForgotPassword = forwardRef(({ open, onClose, showAlert, ...others }
                   width: '80%'
                 }}
               >
-                Masukkan Username untuk mendapatkan link
+                Masukkan Email untuk mendapatkan link
                 <br />
                 reset password melalui email terdaftar
               </Typography>
@@ -110,12 +126,12 @@ const DialogForgotPassword = forwardRef(({ open, onClose, showAlert, ...others }
               className="input"
             >
               <OutlinedInput
-                id="InputUsername"
+                id="InputEmail"
                 type="name"
-                value={inputUsername}
+                value={inputEmail}
                 onChange={handleChangeInput}
-                label="Username"
-                placeholder="Masukkan Username"
+                label="Email"
+                placeholder="Masukkan Email"
                 autoComplete="off"
                 sx={{ fontFamily: 'Folks' }}
               />
@@ -149,15 +165,26 @@ DialogForgotPassword.defaultProps = {
 };
 
 export default function LoginPage() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [openDialogForgotPassword, setOpenDialogForgotPassword] = useState(false);
 
   const [values, setValues] = useState({
-    username: '',
+    email: '',
     password: '',
     showPassword: false
   });
+
+  const [isLoginProcess, setIsLoginProcess] = useState(false);
+
+  const clearLoginForm = () => {
+    setValues({
+      email: '',
+      password: ''
+    });
+    setIsLoginProcess(false);
+  };
 
   const [alertDescription, setAlertDescription] = useState({
     isOpen: false,
@@ -190,19 +217,19 @@ export default function LoginPage() {
   };
 
   const handleLoginSession = async () => {
-    switch (values.username) {
-      case 'santri':
-        return navigate('/santri/home');
-
-      case 'guru':
-        return navigate('/guru/home');
-
-      case 'sekretaris':
-        return navigate('/sekertaris/home');
-
-      default:
-        return navigate('/masuk');
-    }
+    dispatch(
+      createSession({
+        data: {
+          email: values.email,
+          password: values.password
+        },
+        isLoginProcess: isLoginProcess,
+        setIsLoginProcess: setIsLoginProcess,
+        showAlertToast: showAlertToast,
+        navigate: navigate,
+        clearLoginForm: clearLoginForm
+      })
+    );
   };
 
   return (
@@ -214,33 +241,23 @@ export default function LoginPage() {
             <BoxTransition variant="fadeZoom" duration={0.25}>
               <h2>Masuk Akun</h2>
               <p>
-                Masukkan username dan password
+                Masukkan email dan password
                 <br />
                 untuk dapat masuk kedalam sistem
               </p>
-              <Box>
-                <Lottie
-                  isClickToPauseDisabled={true}
-                  options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: AnimWriteLoginForm,
-                    rendererSettings: {
-                      preserveAspectRatio: 'xMidYMid slice'
-                    }
-                  }}
-                />
+              <Box width={500}>
+                <Lottie animationData={AnimWriteLoginForm} loop={true} autoPlay={true} style={{ width: 100 }} />
               </Box>
               <Box component="form" className="login-form">
                 <FormControl variant="outlined" className="input">
-                  <InputLabel htmlFor="InputUsername">Username</InputLabel>
+                  <InputLabel htmlFor="InputEmail">Email</InputLabel>
                   <OutlinedInput
-                    id="InputUsername"
-                    type="text"
+                    id="InputEmail"
+                    type="email"
                     className="normal-border"
-                    value={values.username}
-                    onChange={handleChange('username')}
-                    label="Username"
+                    value={values.email}
+                    onChange={handleChange('email')}
+                    label="Email"
                   />
                 </FormControl>
                 <FormControl variant="outlined" className="input">
@@ -275,17 +292,7 @@ export default function LoginPage() {
             </BoxTransition>
             <BoxTransition variant="fade" duration={0.5}>
               <Box>
-                <Lottie
-                  isClickToPauseDisabled={true}
-                  options={{
-                    loop: true,
-                    autoplay: true,
-                    animationData: AnimWriteLoginForm,
-                    rendererSettings: {
-                      preserveAspectRatio: 'xMidYMid slice'
-                    }
-                  }}
-                />
+                <Lottie animationData={AnimWriteLoginForm} loop={true} autoPlay={true} style={{ height: '100%' }} />
               </Box>
             </BoxTransition>
           </Box>

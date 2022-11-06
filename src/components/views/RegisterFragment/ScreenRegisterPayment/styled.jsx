@@ -42,21 +42,32 @@ export default styled(BoxTransition)(({ theme }) => ({
           borderRadius: 3,
           outline: '2px solid rgba(0,0,0,0.2)',
           backgroundColor: 'white',
-          '& > label': {
-            '& > span': {
-              cursor: 'pointer',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 2,
-              padding: 15,
-              '& svg': {
-                fill: 'rgba(0,0,0,0.5)'
-              },
-              '& p': {
-                fontSize: 12,
-                color: 'rgba(0,0,0,0.5)'
+          '&.upload-box': {
+            '& > label': {
+              '& > span': {
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 2,
+                padding: 15,
+                '& svg': {
+                  fill: 'rgba(0,0,0,0.5)'
+                },
+                '& p': {
+                  fontSize: 12,
+                  color: 'rgba(0,0,0,0.5)'
+                }
               }
+            }
+          },
+          '&.confirmation-box': {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            paddingBottom: 20,
+            '& > p': {
+              marginTop: -10
             }
           }
         }

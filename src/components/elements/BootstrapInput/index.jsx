@@ -7,7 +7,7 @@ export default function BootstrapInput(props) {
       <InputLabel shrink htmlFor={props.id} sx={{ fontSize: 16, fontFamily: 'Folks' }}>
         {props.label}
       </InputLabel>
-      <Component id={props.id} onChange={props.onChange} />
+      <Component defaultValue={props.defaultValue} id={props.id} onChange={props.onChange} />
     </FormControl>
   );
 }

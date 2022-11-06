@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import NavGroup from './NavGroup';
-import sekertarisSidebar from 'config/menu/SekertarisSidebar';
+import sekretarisSidebar from 'config/menu/SekertarisSidebar';
 import guruSidebar from 'config/menu/GuruSidebar';
 import santriSidebar from 'config/menu/SantriSidebar';
 import { useLocation } from 'react-router';
@@ -11,8 +11,8 @@ export default function MenuList(props) {
   const getMenu = () => {
     if (location.pathname.includes('guru')) {
       return guruSidebar;
-    } else if (location.pathname.includes('sekertaris')) {
-      return sekertarisSidebar;
+    } else if (location.pathname.includes('sekretaris')) {
+      return sekretarisSidebar;
     } else if (location.pathname.includes('santri')) {
       return santriSidebar;
     } else {
