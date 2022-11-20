@@ -48,7 +48,7 @@ const DialogForgotPassword = forwardRef(({ open, onClose, showAlert, ...others }
   const handleClose = () => {
     if (!isSendingLinkProcess) {
       onClose();
-      isSendingLinkProcess(false);
+      setIsSendingLinkProcess(false);
       setTimeout(() => {
         setInputEmail('');
       }, 500);
@@ -246,7 +246,9 @@ export default function LoginPage() {
                 untuk dapat masuk kedalam sistem
               </p>
               <Box width={500}>
-                <Lottie animationData={AnimWriteLoginForm} loop={true} autoPlay={true} style={{ width: 100 }} />
+                <center>
+                  <Lottie animationData={AnimWriteLoginForm} loop={true} autoPlay={true} style={{ width: '70%' }} />
+                </center>
               </Box>
               <Box component="form" className="login-form">
                 <FormControl variant="outlined" className="input">

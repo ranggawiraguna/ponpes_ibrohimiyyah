@@ -8,38 +8,38 @@ const sekretarisSidebar = {
       type: 'group',
       children: [
         {
-          id: 'home',
+          id: 'article',
           title: 'Artikel',
           type: 'item',
-          url: '/sekretaris/home',
+          url: '/sekretaris/artikel',
           icon: IconArticle
         },
         {
-          id: 'profile',
-          title: 'Profil',
+          id: 'profile-pondok',
+          title: 'Profil Pondok',
           type: 'item',
-          url: '/sekretaris/home',
+          url: '/sekretaris/profile-pondok',
           icon: IconUserCircle
         },
         {
           id: 'documentation',
           title: 'Dokumentasi',
           type: 'item',
-          url: '/sekretaris/home',
+          url: '/sekretaris/dokumentasi',
           icon: IconCamera
         },
         {
-          id: 'regitration',
+          id: 'registration',
           title: 'Pendaftaran',
           type: 'item',
-          url: '/sekretaris/home',
+          url: '/sekretaris/pendaftaran',
           icon: IconUserPlus
         },
         {
           id: 'payment',
           title: 'Pembayaran',
           type: 'item',
-          url: '/sekretaris/home',
+          url: '/sekretaris/pembayaran',
           icon: IconCreditCard
         }
       ]

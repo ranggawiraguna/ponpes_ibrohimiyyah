@@ -9,10 +9,10 @@ import Documentation4 from 'assets/content/documentation/4.jpg';
 import Documentation5 from 'assets/content/documentation/5.png';
 import Documentation6 from 'assets/content/documentation/6.jpg';
 
-export default function Dokumentasi() {
+export default function Dokumentasi(props) {
   return (
     <Wrapper id="dokumentasi">
-      <div className="lightBg" style={{ padding: '50px 0' }}>
+      <div className="lightBg" style={{ padding: '50px 0', display: props.withHeader ? 'block' : 'none' }}>
         <div className="container">
           <ClientSlider />
         </div>
@@ -20,7 +20,7 @@ export default function Dokumentasi() {
       <br />
       <br />
       <br />
-      <div className="whiteBg">
+      <div>
         <div className="container">
           <HeaderInfo>
             <h1 className="font40 extraBold">Dokumentasi</h1>

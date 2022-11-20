@@ -44,7 +44,7 @@ export default function MainLayout() {
 
       <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
 
-      <Page theme={theme} open={leftDrawerOpened}>
+      <Page theme={theme} open={leftDrawerOpened} sx={{ overflowX: 'hidden' }}>
         <Outlet />
       </Page>
     </Box>

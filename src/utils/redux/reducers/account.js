@@ -13,8 +13,6 @@ export function restoreSession(action) {
     let errorCheck = false;
 
     for (const path of paths) {
-      console.log(path);
-      console.log(action.data);
       try {
         const docSnapshot = await getDoc(doc(db, path, action.data)).catch(() => {});
         if (docSnapshot && docSnapshot.exists()) {

@@ -10,7 +10,7 @@ export default function LandingPage() {
     <>
       <TopNavbar />
       <Home />
-      <Profile />
+      <Profile withHeader />
       <Dokumentasi />
       <Footer />
     </>

@@ -9,7 +9,7 @@ import { Box } from '@mui/system';
 const WrapperChild = muiStyled(Box)(({ theme }) => ({
   paddingTop: '80px',
   width: '100%',
-  minHeight: '840px',
+  minHeight: '780px',
   [theme.breakpoints.down('md')]: {
     flexDirection: 'column',
     '& > div': {
@@ -31,10 +31,10 @@ const WrapperChild = muiStyled(Box)(({ theme }) => ({
   }
 }));
 
-export default function Profile() {
+export default function Profile(props) {
   return (
     <Wrapper id="profile">
-      <div className="lightBg" style={{ padding: '50px 0' }}>
+      <div className="lightBg" style={{ padding: '50px 0', display: props.withHeader ? 'block' : 'none' }}>
         <div className="container">
           <ClientSlider />
         </div>
@@ -42,7 +42,9 @@ export default function Profile() {
       <WrapperChild className="container flexSpaceCenter">
         <LeftSide className="flexCenter">
           <div>
-            <h1 className="extraBold font60">KH. Romo Surnadi Abdul Majid</h1>
+            <h1 className="extraBold" style={{ fontSize: 32 }}>
+              KH. Romo Surnadi Abdul Majid
+            </h1>
             <HeaderP className="font14">
               Beliau adalah pendiri dari Pondok Pesantren Al'Quran Ibrohimiyyah yang didirikan pada tahun 18 Mei 1993 di Jakarta. Awal mula
               didirikannya pondok ini karena melaksanakan amanah dari guru atau kyai yang bernama KH. As'ad Syamsul Arifin dengan tujuan

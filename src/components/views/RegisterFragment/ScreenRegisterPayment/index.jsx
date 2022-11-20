@@ -162,7 +162,7 @@ export default function ScreenRegisterPayment({ thisRef, values, onChangeStep, s
                 <tr>
                   <td>Nama</td>
                   <td>:</td>
-                  <td>Agus Budiantoro</td>
+                  <td>Syarif Hidayat</td>
                 </tr>
                 <tr>
                   <td>Jumlah</td>

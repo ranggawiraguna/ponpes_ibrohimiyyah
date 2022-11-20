@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.77bedb8b.css",
-    "main.js": "/static/js/main.67d78f10.js",
+    "main.js": "/static/js/main.e2f68aa2.js",
     "static/media/TahunBaruIslam.jpg": "/static/media/TahunBaruIslam.112bdcee041ed3a7814c.jpg",
     "static/media/TeamHadroh.jpg": "/static/media/TeamHadroh.45d0ce4e5f24bf7edd1e.jpg",
     "static/media/TabunganQurban.jpeg": "/static/media/TabunganQurban.e228a84be0716e818241.jpeg",
@@ -27,12 +27,14 @@
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/PageStaredFirst.svg": "/static/media/PageStaredFirst.2d7447b8b0806e2fa0bd80b1f48595d5.svg",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
+    "static/media/OptionDetail.svg": "/static/media/OptionDetail.38b4a27176c0a6257667c44b3bc91c59.svg",
+    "static/media/ProfileEditPicture.svg": "/static/media/ProfileEditPicture.cea71d95575a633b18136a571c24665d.svg",
     "index.html": "/index.html",
     "main.77bedb8b.css.map": "/static/css/main.77bedb8b.css.map",
-    "main.67d78f10.js.map": "/static/js/main.67d78f10.js.map"
+    "main.e2f68aa2.js.map": "/static/js/main.e2f68aa2.js.map"
   },
   "entrypoints": [
     "static/css/main.77bedb8b.css",
-    "static/js/main.67d78f10.js"
+    "static/js/main.e2f68aa2.js"
   ]
 }
