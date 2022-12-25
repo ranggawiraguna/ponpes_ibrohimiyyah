@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.77bedb8b.css",
-    "main.js": "/static/js/main.e2f68aa2.js",
+    "main.js": "/static/js/main.3d48884f.js",
     "static/media/TahunBaruIslam.jpg": "/static/media/TahunBaruIslam.112bdcee041ed3a7814c.jpg",
     "static/media/TeamHadroh.jpg": "/static/media/TeamHadroh.45d0ce4e5f24bf7edd1e.jpg",
     "static/media/TabunganQurban.jpeg": "/static/media/TabunganQurban.e228a84be0716e818241.jpeg",
@@ -21,7 +21,9 @@
     "static/media/FolksRegular.ttf": "/static/media/FolksRegular.048adadcdda27c67cfc8.ttf",
     "static/media/FolksBold.ttf": "/static/media/FolksBold.b3744782b9538e486e6e.ttf",
     "static/media/BukaPuasa.jpeg": "/static/media/BukaPuasa.588eac4b34ade3a94882.jpeg",
+    "static/media/TransactionDelayed.svg": "/static/media/TransactionDelayed.fd0383fb5de3f0530573cba92ee10b20.svg",
     "static/media/ProfileChangePassword.svg": "/static/media/ProfileChangePassword.ea6d3d1f78821b02d99424911bb29b16.svg",
+    "static/media/TransactionConfirmed.svg": "/static/media/TransactionConfirmed.56cfe56923839faf2e82fbedf496f149.svg",
     "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
@@ -31,10 +33,10 @@
     "static/media/ProfileEditPicture.svg": "/static/media/ProfileEditPicture.cea71d95575a633b18136a571c24665d.svg",
     "index.html": "/index.html",
     "main.77bedb8b.css.map": "/static/css/main.77bedb8b.css.map",
-    "main.e2f68aa2.js.map": "/static/js/main.e2f68aa2.js.map"
+    "main.3d48884f.js.map": "/static/js/main.3d48884f.js.map"
   },
   "entrypoints": [
     "static/css/main.77bedb8b.css",
-    "static/js/main.e2f68aa2.js"
+    "static/js/main.3d48884f.js"
   ]
 }
