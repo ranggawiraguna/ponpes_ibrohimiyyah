@@ -1,14 +1,15 @@
 import TableDisplay from 'components/elements/TableDisplay';
-import { Avatar, Box, Button, TableCell, TableRow, Typography, styled } from '@mui/material';
+import { Avatar, Box, Button, TableCell, TableRow, Typography, styled, CardMedia } from '@mui/material';
 import { tableDisplayType } from 'utils/other/EnvironmentValues';
 import { Fragment, useEffect, useState } from 'react';
 import { MENU_OPEN } from 'utils/redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 import AlertToast from 'components/elements/AlertToast';
-import { useNavigate } from 'react-router';
+import TransactionConfirmed from 'assets/icon/TransactionConfirmed.svg';
+import TransactionDelayed from 'assets/icon/TransactionDelayed.svg';
 
-const tableHeadContent = ['No.', 'Nama Lengkap', 'Bulan', 'Jumlah Pembayaran', 'Bukti Pembayaran', ''];
-const tableAlignContent = ['center', 'left', 'left', 'center', 'center', 'center'];
+const tableHeadContent = ['No.', 'Bulan', 'Jumlah Pembayaran', 'Bukti Pembayaran', 'Keterangan', ''];
+const tableAlignContent = ['center', 'left', 'center', 'center', 'center', 'center'];
 
 const PageRoot = styled(Box)(() => ({
   '& > div': {
@@ -59,6 +60,14 @@ const PageRoot = styled(Box)(() => ({
                       }
                     }
                   }
+                },
+                '&:nth-of-type(5)': {
+                  '& > img': {
+                    minWidth: 0,
+                    minHeight: 0,
+                    margin: '0 auto',
+                    width: '120px'
+                  }
                 }
               },
               '&:not(last-child)': {
@@ -94,7 +103,7 @@ const PageRoot = styled(Box)(() => ({
   }
 }));
 
-export default function RegistrationPage() {
+export default function PembayaranPage() {
   const dispatch = useDispatch();
   const sidebarReducer = useSelector((state) => state.sidebarReducer);
 
@@ -105,8 +114,22 @@ export default function RegistrationPage() {
     transitionName: 'slideUp'
   });
 
-  const [data] = useState(['', '', '']);
-  const navigate = useNavigate();
+  const firstSigned = 'Maret' ;
+
+  const data = [
+    'Januari', 
+    'Februari', 
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember',
+  ];
 
   useEffect(() => {
     if (!(sidebarReducer.isOpen.findIndex((id) => id === 'payment') > -1)) {
@@ -122,12 +145,7 @@ export default function RegistrationPage() {
       <Fragment>
         <PageRoot>
           <TableDisplay
-            withButtonHeader
-            buttonText={'Riwayat Pembayaran'}
-            buttonAction={() => {
-              navigate('/sekretaris/riwayat-pembayaran');
-            }}
-            title="Data Pembayaran Santri"
+            title="Pembayaran Santri"
             tableContentType={tableDisplayType.row}
             tableAlignContent={tableAlignContent}
             tableHeadContent={tableHeadContent}
@@ -144,17 +162,32 @@ export default function RegistrationPage() {
                 );
               }
 
-              return data.map((data, index) => (
+              return data.slice(data.indexOf(firstSigned)).concat(data.slice(0, data.indexOf(firstSigned))).map((data, index) => (
                 <TableRow key={index}>
                   <TableCell align={tableAlignContent[0]}>{index + 1}</TableCell>
-                  <TableCell align={tableAlignContent[1]}>{'xxxxx'}</TableCell>
+                  <TableCell align={tableAlignContent[1]}>{data}</TableCell>
                   <TableCell align={tableAlignContent[2]}>{'xxxxx'}</TableCell>
-                  <TableCell align={tableAlignContent[3]}>{'xxxxx'}</TableCell>
-                  <TableCell align={tableAlignContent[4]}>
+                  <TableCell align={tableAlignContent[3]}>
                     <Avatar sx={{ margin: '0 auto' }} src={'xxxxx'} />
                   </TableCell>
+                  <TableCell align="center">
+                    {(() => {
+                      const x = Math.floor(Math.random() * 3);
+
+                      if (x === 0) {
+                        return '-';
+                      } else {
+                        return (
+                          <CardMedia
+                            component="img"
+                            src={x === 1 ? TransactionConfirmed : TransactionDelayed}
+                          />
+                        );
+                      }
+                    })()}
+                  </TableCell>
                   <TableCell align={tableAlignContent[5]}>
-                    <Button variant="contained">Konfirmasi</Button>
+                    <Button variant="contained">Upload Bukti</Button>
                   </TableCell>
                 </TableRow>
               ));

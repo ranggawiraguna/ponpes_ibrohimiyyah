@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MENU_OPEN } from 'utils/redux/action';
+import Home  from 'components/views/LandingContent/Sections/Home';
 
-export default function HomePage() {
+export default function ArticlePage() {
   const dispatch = useDispatch();
   const sidebarReducer = useSelector((state) => state.sidebarReducer);
 
@@ -17,7 +18,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <></>
+       <Home />
     </div>
   );
 }

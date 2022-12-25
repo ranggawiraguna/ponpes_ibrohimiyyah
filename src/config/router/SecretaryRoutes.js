@@ -15,7 +15,7 @@ const SecretaryRoutes = [
   <Route key="/sekretaris/dokumentasi" path="dokumentasi" element={<DocumentationPage />} />,
   <Route key="/sekretaris/pendaftaran" path="pendaftaran" element={<RegistrationPage />} />,
   <Route key="/sekretaris/pembayaran" path="pembayaran" element={<PaymentPage />} />,
-  <Route key="/sekretaris/pembayaran-history" path="pembayaran-history" element={<PaymentPageHistory />} />
+  <Route key="/sekretaris/pembayaran-history" path="riwayat-pembayaran" element={<PaymentPageHistory />} />
 ];
 
 export default SecretaryRoutes;

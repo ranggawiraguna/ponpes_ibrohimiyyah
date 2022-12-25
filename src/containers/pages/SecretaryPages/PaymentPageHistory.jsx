@@ -94,7 +94,7 @@ const PageRoot = styled(Box)(() => ({
   }
 }));
 
-export default function RegistrationPageHistory() {
+export default function PaymentPageHistory() {
   const dispatch = useDispatch();
   const sidebarReducer = useSelector((state) => state.sidebarReducer);
 
@@ -118,46 +118,44 @@ export default function RegistrationPageHistory() {
   }, []);
 
   return (
-    <div>
-      <Fragment>
-        <PageRoot>
-          <TableDisplay
-            withButtonHeader
-            buttonText={'Pembayaran Tertunda'}
-            title="Riwayat Pembayaran Santri"
-            buttonAction={() => {
-              navigate('/sekretaris/pembayaran');
-            }}
-            tableContentType={tableDisplayType.row}
-            tableAlignContent={tableAlignContent}
-            tableHeadContent={tableHeadContent}
-            tableBodyContent={(() => {
-              if (data.length <= 0) {
-                return (
-                  <TableRow>
-                    <TableCell colSpan={tableHeadContent.length} align="center">
-                      <Typography variant="p" component="p" sx={{ color: 'rgba(0,0,0,0.6)' }}>
-                        Belum terdapat pendaftaran santri baru
-                      </Typography>
-                    </TableCell>
-                  </TableRow>
-                );
-              }
-
-              return data.map((data, index) => (
-                <TableRow key={index}>
-                  <TableCell align={tableAlignContent[0]}>{index + 1}</TableCell>
-                  <TableCell align={tableAlignContent[1]}>{'xxxxx'}</TableCell>
-                  <TableCell align={tableAlignContent[2]}>{'xxxxx'}</TableCell>
-                  <TableCell align={tableAlignContent[3]}>{'xxxxx'}</TableCell>
-                  <TableCell align={tableAlignContent[4]}>{'xxxxx'}</TableCell>
+    <Fragment>
+      <PageRoot>
+        <TableDisplay
+          withButtonHeader
+          buttonText={'Pembayaran Tertunda'}
+          title="Riwayat Pembayaran Santri"
+          buttonAction={() => {
+            navigate('/sekretaris/pembayaran');
+          }}
+          tableContentType={tableDisplayType.row}
+          tableAlignContent={tableAlignContent}
+          tableHeadContent={tableHeadContent}
+          tableBodyContent={(() => {
+            if (data.length <= 0) {
+              return (
+                <TableRow>
+                  <TableCell colSpan={tableHeadContent.length} align="center">
+                    <Typography variant="p" component="p" sx={{ color: 'rgba(0,0,0,0.6)' }}>
+                      Belum terdapat pendaftaran santri baru
+                    </Typography>
+                  </TableCell>
                 </TableRow>
-              ));
-            })()}
-          />
-        </PageRoot>
-        <AlertToast description={alertDescription} setDescription={setAlertDescription} />
-      </Fragment>
-    </div>
+              );
+            }
+
+            return data.map((data, index) => (
+              <TableRow key={index}>
+                <TableCell align={tableAlignContent[0]}>{index + 1}</TableCell>
+                <TableCell align={tableAlignContent[1]}>{'xxxxx'}</TableCell>
+                <TableCell align={tableAlignContent[2]}>{'xxxxx'}</TableCell>
+                <TableCell align={tableAlignContent[3]}>{'xxxxx'}</TableCell>
+                <TableCell align={tableAlignContent[4]}>{'xxxxx'}</TableCell>
+              </TableRow>
+            ));
+          })()}
+        />
+      </PageRoot>
+      <AlertToast description={alertDescription} setDescription={setAlertDescription} />
+    </Fragment>
   );
 }

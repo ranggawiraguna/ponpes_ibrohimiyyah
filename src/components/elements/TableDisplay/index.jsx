@@ -16,13 +16,17 @@ import { styledComp, SelectInput } from './styled';
 export default function TableDisplay({
   withButtonHeader,
   withOptionHeader,
+  withOptionHeader2,
   withChart,
   title,
   buttonText,
   buttonAction,
   optionSelected,
+  optionSelected2,
   optionValues,
+  optionValues2,
   optionAction,
+  optionAction2,
   chartViews,
   tableContentType,
   tableAlignContent,
@@ -71,6 +75,20 @@ export default function TableDisplay({
             <></>
           );
         })()}
+        {(() =>
+          withOptionHeader2 ? (
+            <NativeSelect value={optionSelected2} onChange={(e) => optionAction2(e.target.value)} input={<SelectInput />}>
+              {(() => {
+                return optionValues2.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ));
+              })()}
+            </NativeSelect>
+          ) : (
+            <></>
+          ))()}
       </Box>
       {(() => {
         return withChart ? (
