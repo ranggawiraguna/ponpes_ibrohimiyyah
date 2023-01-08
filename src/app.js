@@ -1,5 +1,4 @@
 import 'assets/font/FontFace.css';
-import React from 'react';
 import MainRoutes from './config/router/MainRoutes';
 import themes from 'config/theme/AppTheme';
 import { Routes } from 'react-router';

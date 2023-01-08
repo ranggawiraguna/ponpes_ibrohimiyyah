@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import LogoIcon from 'assets/image//logo-icon.png';
 import LocationMapIcon from 'assets/image/location-map.png';
@@ -47,7 +46,7 @@ export default function Contact() {
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <CardMedia component="img" src={LocationMapIcon} width={50} sx={{ width: 50 }} />
                 <p className="whiteColor font16" style={{ marginLeft: 20 }}>
-                  Jl. Kmp Bahari Gg. IV No.121 Rt 008 Rw 002 <br />
+                  Jl. Kampung Bahari Gg. IV No.121 Rt 008 Rw 002 <br />
                   Kelurahan Tanjung Priok, Kecamatan Tanjung Priok, Jakarta Utara (14310)
                 </p>
               </Box>

@@ -67,11 +67,9 @@ export function createSession(action) {
           } else {
             action.showAlertToast('error', `${error.code} - ${error.message}`);
           }
-          action.clearLoginForm();
         });
     } else if (action.data.email.length <= 0 || action.data.password.length <= 0) {
       action.showAlertToast('warning', 'Silahkan lengkapi form login dengan benar');
-      action.clearLoginForm();
     } else {
       action.showAlertToast('info', 'Login akun sedang di proses, mohon tunggu beberapa saat');
     }

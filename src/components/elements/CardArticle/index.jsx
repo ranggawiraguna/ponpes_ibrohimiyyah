@@ -4,12 +4,15 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import { useNavigate } from 'react-router';
 
 export default function CardArticle(props) {
+  const navigate = useNavigate();
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 }} onClick={() => navigate(`/article/${props.articleId}`)}>
       <CardActionArea>
-        <CardMedia component="img" height="140" src={props.image} alt="green iguana" />
+        <CardMedia component="img" height="140" src={props.image} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {props.title}

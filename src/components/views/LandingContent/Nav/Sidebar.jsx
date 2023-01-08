@@ -1,10 +1,9 @@
-import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-scroll';
 import CloseIcon from 'assets/icon/CloseIcon';
 import LogoIcon from 'assets/image/logo-icon.png';
 
-export default function Sidebar({ sidebarOpen, toggleSidebar }) {
+export default function Sidebar({ sidebarOpen, toggleSidebar, hideMenu = false }) {
   return (
     <Wrapper className="animate darkBg" sidebarOpen={sidebarOpen}>
       <SidebarHeader className="flexSpaceCenter">
@@ -21,62 +20,68 @@ export default function Sidebar({ sidebarOpen, toggleSidebar }) {
         </CloseBtn>
       </SidebarHeader>
 
-      <UlStyle className="flexNullCenter flexColumn">
-        <li className="semiBold font15 pointer">
-          <Link
-            onClick={() => toggleSidebar(!sidebarOpen)}
-            activeClass="active"
-            className="whiteColor"
-            style={{ padding: '10px 15px' }}
-            to="home"
-            spy={true}
-            smooth={true}
-            offset={-60}
-          >
-            Home
-          </Link>
-        </li>
-        <li className="semiBold font15 pointer">
-          <Link
-            onClick={() => toggleSidebar(!sidebarOpen)}
-            activeClass="active"
-            className="whiteColor"
-            style={{ padding: '10px 15px' }}
-            to="profile"
-            spy={true}
-            smooth={true}
-            offset={-60}
-          >
-            Profile
-          </Link>
-        </li>
-        <li className="semiBold font15 pointer">
-          <Link
-            onClick={() => toggleSidebar(!sidebarOpen)}
-            activeClass="active"
-            className="whiteColor"
-            style={{ padding: '10px 15px' }}
-            to="dokumentasi"
-            spy={true}
-            smooth={true}
-            offset={-60}
-          >
-            Dokumentasi
-          </Link>
-        </li>
-      </UlStyle>
-      <UlStyle className="flexSpaceCenter">
-        <li className="semiBold font15 pointer">
-          <a href="/masuk" style={{ padding: '10px 30px 10px 0' }} className="whiteColor">
-            Log in
-          </a>
-        </li>
-        <li className="semiBold font15 pointer flexCenter">
-          <a href="/pendaftaran" className="radius8 lightBg" style={{ padding: '10px 15px' }}>
-            Pendaftaran
-          </a>
-        </li>
-      </UlStyle>
+      {!hideMenu ? (
+        <>
+          <UlStyle className="flexNullCenter flexColumn">
+            <li className="semiBold font15 pointer">
+              <Link
+                onClick={() => toggleSidebar(!sidebarOpen)}
+                activeClass="active"
+                className="whiteColor"
+                style={{ padding: '10px 15px' }}
+                to="home"
+                spy={true}
+                smooth={true}
+                offset={-60}
+              >
+                Home
+              </Link>
+            </li>
+            <li className="semiBold font15 pointer">
+              <Link
+                onClick={() => toggleSidebar(!sidebarOpen)}
+                activeClass="active"
+                className="whiteColor"
+                style={{ padding: '10px 15px' }}
+                to="profile"
+                spy={true}
+                smooth={true}
+                offset={-60}
+              >
+                Profile
+              </Link>
+            </li>
+            <li className="semiBold font15 pointer">
+              <Link
+                onClick={() => toggleSidebar(!sidebarOpen)}
+                activeClass="active"
+                className="whiteColor"
+                style={{ padding: '10px 15px' }}
+                to="dokumentasi"
+                spy={true}
+                smooth={true}
+                offset={-60}
+              >
+                Dokumentasi
+              </Link>
+            </li>
+          </UlStyle>
+          <UlStyle className="flexSpaceCenter">
+            <li className="semiBold font15 pointer">
+              <a href="/masuk" style={{ padding: '10px 30px 10px 0' }} className="whiteColor">
+                Log in
+              </a>
+            </li>
+            <li className="semiBold font15 pointer flexCenter">
+              <a href="/pendaftaran" className="radius8 lightBg" style={{ padding: '10px 15px' }}>
+                Pendaftaran
+              </a>
+            </li>
+          </UlStyle>{' '}
+        </>
+      ) : (
+        <></>
+      )}
     </Wrapper>
   );
 }

@@ -1,12 +1,17 @@
-import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { TOGGLE_IMAGE_BACKDROP } from 'utils/redux/action';
 
-export default function ProjectBox({ img, title, action }) {
+export default function ProjectBox({ img, title }) {
+  const dispatch = useDispatch();
+  
   return (
     <Wrapper>
       <ImgBtn
         className="animate pointer radius8"
-        onClick={action ? () => action() : null}
+        onClick={() => {
+          dispatch({ type: TOGGLE_IMAGE_BACKDROP, status: true, image: img });
+        }}
         style={{
           overflow: 'hidden',
           marginBottom: 20
@@ -22,14 +27,13 @@ export default function ProjectBox({ img, title, action }) {
           }}
         />
       </ImgBtn>
-      <h3 className="font20 extraBold">{title}</h3>
+      <h3 className="font20 extraBold textCenter">{title}</h3>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
   width: 100%;
-  margin-top: 30px;
   h3 {
     padding-bottom: 10px;
   }

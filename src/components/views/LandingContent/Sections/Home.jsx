@@ -1,13 +1,9 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CardArticle from 'components/elements/CardArticle';
 import { Box, styled as muiStyled } from '@mui/material';
-import ArticleTabunganQurban from 'assets/content/article/TabunganQurban.jpeg';
-import ArticleBukaPuasa from 'assets/content/article/BukaPuasa.jpeg';
-import ArticleTahunBaruIslam from 'assets/content/article/TahunBaruIslam.jpg';
-import ArticleTeamHadroh from 'assets/content/article/TeamHadroh.jpg';
-import Article17Agustus from 'assets/content/article/17Agustus.jpg';
-import ArticleShalawatNariyah from 'assets/content/article/ShalawatNariyah.jpg';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from 'config/firebase';
 
 const Component = muiStyled(Box)(({ theme }) => ({
   width: '100%',
@@ -29,39 +25,36 @@ const Component = muiStyled(Box)(({ theme }) => ({
 }));
 
 export default function Home() {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    const listenerArticles = onSnapshot(collection(db, 'artikel'), async (snapshot) =>
+      setArticles(
+        await Promise.all(
+          snapshot.docs.map((document) => ({
+            id: document.id,
+            judul: document.data().judul,
+            deskripsi: document.data().deskripsi,
+            tanggal_dibuat: document.data().tanggal_dibuat,
+            url_photo: document.data().url_photo,
+            html_content: document.data().html_content
+          }))
+        )
+      )
+    );
+
+    return () => {
+      listenerArticles();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Wrapper id="home" className="container flexSpaceCenter">
       <Component>
-        <CardArticle
-          title="Tabungan Qurban"
-          description="Kami selaku pengurus dan panitia qurban dari Pondok Pesantren Al'Quran Ibrohimiyyah menerima dan menyalurkan hewan qurban sapi dan kambing."
-          image={ArticleTabunganQurban}
-        />
-        <CardArticle
-          title="Tahun Baru Islam"
-          description="Setiap tahun kami selaku pengurus Pondok Pesantren Al'Quran Ibrohimiyyah mengadakan pawai obor tahun baru islam dan doa bersama."
-          image={ArticleTahunBaruIslam}
-        />
-        <CardArticle
-          title="Buka Puasa Bersama"
-          description="Kami selaku pengurus Pondok Pesantren Al'Quran Ibrohimiyyah mengadakan buka puasa bersama pada bulan ramadhan dengan para santri."
-          image={ArticleBukaPuasa}
-        />
-        <CardArticle
-          title="17 Agustus"
-          description="Kami selaku pengerus ponpes ibrohimiyyah mengadakan rutinitas 17 Agustus untuk memperingati hari kemerdekaan Indonesia bersama semua santri"
-          image={Article17Agustus}
-        />
-        <CardArticle
-          title="Team Hadroh"
-          description="Kami sebagai Team Hadroh Ibrohimiyyah selalu menyiarkan syair syair tentang kecintaan kita kepada Nabi Muhammad SAW"
-          image={ArticleTeamHadroh}
-        />
-        <CardArticle
-          title="Shalawat Nariyah"
-          description="Kami seluruh santri ibrohimiyyah mengadakan rutinitas shalawat Nariyah untuk terus sambungan dan menambahkan rasa cinta kepada Nabi Muhammad SAW"
-          image={ArticleShalawatNariyah}
-        />
+        {articles.map((article) => (
+          <CardArticle key={article.id} articleId={article.id} title={article.judul} description={article.deskripsi} image={article.url_photo} />
+        ))}
       </Component>
     </Wrapper>
   );

@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import RollerIcon from 'assets/icon/RollerIcon';
 import MonitorIcon from 'assets/icon/MonitorIcon';

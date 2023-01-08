@@ -138,6 +138,9 @@ body {
   font-size: 16px;
   font-weight: 400;
 }
+body * {
+  font-family: 'Folks';
+}
 .container {
   width: 100%;
   max-width: 1220px;

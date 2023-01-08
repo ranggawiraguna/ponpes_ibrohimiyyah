@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-scroll';
+import { Link as LinkRouter } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Backdrop from '../Backdrop';
 import BurgerIcon from 'assets/icon/BurgerIcon';
 import LogoIcon from 'assets/image//logo-icon.png';
 
-export default function TopNavbar() {
+export default function TopNavbar({ hideMenu = false }) {
   const [y, setY] = useState(window.scrollY);
   const [sidebarOpen, toggleSidebar] = useState(false);
 
@@ -19,38 +20,42 @@ export default function TopNavbar() {
 
   return (
     <>
-      <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+      <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} hideMenu={hideMenu} />
       {sidebarOpen && <Backdrop toggleSidebar={toggleSidebar} />}
       <Wrapper className="flexCenter animate blueLightBg" style={y > 100 ? { height: '70px' } : { height: '85px' }}>
         <NavInner className="container flexSpaceCenter">
-          <Link className="pointer flexNullCenter" to="/">
+          <LinkRouter className="pointer flexNullCenter" to="/">
             <img src={LogoIcon} alt="" width={60} style={{ marginBottom: 5 }} />
             <h1 style={{ marginLeft: '15px', lineHeight: 1.1 }} className="font20 bold">
               Pondok Pesantren
               <br />
               Al-Qur'an Ibrohimiyyah
             </h1>
-          </Link>
+          </LinkRouter>
           <BurderWrapper className="pointer" onClick={() => toggleSidebar(!sidebarOpen)}>
             <BurgerIcon />
           </BurderWrapper>
-          <UlWrapper className="flexNullCenter">
-            <li className="semiBold font15 pointer">
-              <Link activeClass="active" style={{ padding: '10px 15px' }} to="home" spy={true} smooth={true} offset={-80}>
-                Home
-              </Link>
-            </li>
-            <li className="semiBold font15 pointer">
-              <Link activeClass="active" style={{ padding: '10px 15px' }} to="profile" spy={true} smooth={true} offset={-80}>
-                Profile
-              </Link>
-            </li>
-            <li className="semiBold font15 pointer">
-              <Link activeClass="active" style={{ padding: '10px 15px' }} to="dokumentasi" spy={true} smooth={true} offset={-80}>
-                Dokumentasi
-              </Link>
-            </li>
-          </UlWrapper>
+          {!hideMenu ? (
+            <UlWrapper className="flexNullCenter">
+              <li className="semiBold font15 pointer">
+                <Link activeClass="active" style={{ padding: '10px 15px' }} to="home" spy={true} smooth={true} offset={-80}>
+                  Home
+                </Link>
+              </li>
+              <li className="semiBold font15 pointer">
+                <Link activeClass="active" style={{ padding: '10px 15px' }} to="profile" spy={true} smooth={true} offset={-80}>
+                  Profile
+                </Link>
+              </li>
+              <li className="semiBold font15 pointer">
+                <Link activeClass="active" style={{ padding: '10px 15px' }} to="dokumentasi" spy={true} smooth={true} offset={-80}>
+                  Dokumentasi
+                </Link>
+              </li>
+            </UlWrapper>
+          ) : (
+            <></>
+          )}
           <UlWrapperRight className="flexNullCenter">
             <li className="semiBold font15 pointer">
               <a href="/masuk" style={{ padding: '10px 30px 10px 0' }}>

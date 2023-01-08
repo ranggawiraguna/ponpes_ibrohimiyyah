@@ -1,15 +1,34 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ProjectBox from 'components/views/LandingContent/ProjectBox';
 import ClientSlider from '../ClientSlider';
-import Documentation1 from 'assets/content/documentation/1.jpg';
-import Documentation2 from 'assets/content/documentation/2.jpg';
-import Documentation3 from 'assets/content/documentation/3.jpg';
-import Documentation4 from 'assets/content/documentation/4.jpg';
-import Documentation5 from 'assets/content/documentation/5.png';
-import Documentation6 from 'assets/content/documentation/6.jpg';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from 'config/firebase';
+import { Grid, Typography } from '@mui/material';
 
 export default function Dokumentasi(props) {
+  const [documentations, setDocumentations] = useState([]);
+
+  useEffect(() => {
+    const listenerDocumentations = onSnapshot(collection(db, 'dokumentasi'), async (snapshot) =>
+      setDocumentations(
+        await Promise.all(
+          snapshot.docs.map((document) => ({
+            id: document.id,
+            judul: document.data().judul,
+            file_url: document.data().file_url,
+            jenis: document.data().jenis
+          }))
+        )
+      )
+    );
+
+    return () => {
+      listenerDocumentations();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Wrapper id="dokumentasi">
       <div className="lightBg" style={{ padding: '50px 0', display: props.withHeader ? 'block' : 'none' }}>
@@ -17,36 +36,25 @@ export default function Dokumentasi(props) {
           <ClientSlider />
         </div>
       </div>
-      <br />
-      <br />
-      <br />
       <div>
         <div className="container">
           <HeaderInfo>
-            <h1 className="font40 extraBold">Dokumentasi</h1>
+            <Typography
+              variant="h1"
+              component="h1"
+              className="extraBold"
+              sx={{ fontSize: 32, marginTop: 8, marginBottom: 4 }}
+            >
+              Dokumentasi
+            </Typography>
           </HeaderInfo>
-          <div className="row textCenter">
-            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <ProjectBox img={Documentation1} title="Pengajian Bersama" action={() => console.log('clicked')} />
-            </div>
-            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <ProjectBox img={Documentation2} title="Santri Putri" action={() => console.log('clicked')} />
-            </div>
-            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <ProjectBox img={Documentation3} title="Santri Pria" action={() => console.log('clicked')} />
-            </div>
-          </div>
-          <div className="row textCenter">
-            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <ProjectBox img={Documentation4} title="Acara Maulid" action={() => console.log('clicked')} />
-            </div>
-            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <ProjectBox img={Documentation5} title="Ujian Santri" action={() => console.log('clicked')} />
-            </div>
-            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <ProjectBox img={Documentation6} title="Ziarah Kubur" action={() => console.log('clicked')} />
-            </div>
-          </div>
+          <Grid container spacing={5}>
+            {documentations.map((documentation) => (
+              <Grid key={documentation.id} item xs={12} sm={6} md={4}>
+                <ProjectBox img={documentation.file_url} title={documentation.judul} />
+              </Grid>
+            ))}
+          </Grid>
         </div>
       </div>
     </Wrapper>
@@ -55,6 +63,7 @@ export default function Dokumentasi(props) {
 
 const Wrapper = styled.section`
   width: 100%;
+  margin-top: 50px;
   margin-bottom: 100px;
 `;
 const HeaderInfo = styled.div`
