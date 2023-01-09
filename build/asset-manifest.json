@@ -1,26 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.77bedb8b.css",
-    "main.js": "/static/js/main.3d48884f.js",
-    "static/media/TahunBaruIslam.jpg": "/static/media/TahunBaruIslam.112bdcee041ed3a7814c.jpg",
-    "static/media/TeamHadroh.jpg": "/static/media/TeamHadroh.45d0ce4e5f24bf7edd1e.jpg",
-    "static/media/TabunganQurban.jpeg": "/static/media/TabunganQurban.e228a84be0716e818241.jpeg",
-    "static/media/17Agustus.jpg": "/static/media/17Agustus.07d9be43afd13bc80aad.jpg",
-    "static/media/5.png": "/static/media/5.715fb449e0d2ea8154b2.png",
+    "main.css": "/static/css/main.be5c9f2b.css",
+    "main.js": "/static/js/main.c407ffa8.js",
     "static/media/logo-icon.png": "/static/media/logo-icon.21f1824a13dbbc33febf.png",
-    "static/media/1.jpg": "/static/media/1.333a50c8d219fd5aa73e.jpg",
-    "static/media/4.jpg": "/static/media/4.a0b8c85f7c7d17fcf10c.jpg",
-    "static/media/3.jpg": "/static/media/3.99768d5a3336d5356383.jpg",
-    "static/media/2.jpg": "/static/media/2.08ed898827323a9de1e4.jpg",
+    "static/media/ProfilePendiri.jpg": "/static/media/ProfilePendiri.313701771ee7618d322d.jpg",
     "static/media/location-map.png": "/static/media/location-map.a871238b80c67869ae59.png",
-    "static/media/ShalawatNariyah.jpg": "/static/media/ShalawatNariyah.bf8de85d22ada2676a61.jpg",
-    "static/media/6.jpg": "/static/media/6.15a3c2b355404544cc77.jpg",
     "static/media/FolksBlack.ttf": "/static/media/FolksBlack.3feb0b1ed24e53e46412.ttf",
     "static/media/FolksHeavy.ttf": "/static/media/FolksHeavy.730e6ac08c711bbb5546.ttf",
     "static/media/FolksLight.ttf": "/static/media/FolksLight.29b769986ab714a3ffcc.ttf",
     "static/media/FolksRegular.ttf": "/static/media/FolksRegular.048adadcdda27c67cfc8.ttf",
     "static/media/FolksBold.ttf": "/static/media/FolksBold.b3744782b9538e486e6e.ttf",
-    "static/media/BukaPuasa.jpeg": "/static/media/BukaPuasa.588eac4b34ade3a94882.jpeg",
     "static/media/TransactionDelayed.svg": "/static/media/TransactionDelayed.fd0383fb5de3f0530573cba92ee10b20.svg",
     "static/media/ProfileChangePassword.svg": "/static/media/ProfileChangePassword.ea6d3d1f78821b02d99424911bb29b16.svg",
     "static/media/TransactionConfirmed.svg": "/static/media/TransactionConfirmed.56cfe56923839faf2e82fbedf496f149.svg",
@@ -32,11 +21,11 @@
     "static/media/OptionDetail.svg": "/static/media/OptionDetail.38b4a27176c0a6257667c44b3bc91c59.svg",
     "static/media/ProfileEditPicture.svg": "/static/media/ProfileEditPicture.cea71d95575a633b18136a571c24665d.svg",
     "index.html": "/index.html",
-    "main.77bedb8b.css.map": "/static/css/main.77bedb8b.css.map",
-    "main.3d48884f.js.map": "/static/js/main.3d48884f.js.map"
+    "main.be5c9f2b.css.map": "/static/css/main.be5c9f2b.css.map",
+    "main.c407ffa8.js.map": "/static/js/main.c407ffa8.js.map"
   },
   "entrypoints": [
-    "static/css/main.77bedb8b.css",
-    "static/js/main.3d48884f.js"
+    "static/css/main.be5c9f2b.css",
+    "static/js/main.c407ffa8.js"
   ]
 }
