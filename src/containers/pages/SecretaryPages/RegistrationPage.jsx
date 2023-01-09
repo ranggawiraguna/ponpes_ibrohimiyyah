@@ -7,8 +7,10 @@ import { MENU_OPEN } from 'utils/redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 import AlertToast from 'components/elements/AlertToast';
 import ImageNotFound from 'assets/icon/ImageNotFound.png';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { db } from 'config/firebase';
+import { collection, doc, onSnapshot, query, setDoc, Timestamp, updateDoc, where } from 'firebase/firestore';
+import { db, otherAuth } from 'config/firebase';
+import { createUserWithEmailAndPassword, deleteUser, signOut, updateProfile } from 'firebase/auth';
+import emailjs from '@emailjs/browser';
 
 const tableHeadContent = ['No.', 'Nama Lengkap', 'Email', 'Bukti Pembayaran', 'Lainnya'];
 const tableAlignContent = ['center', 'left', 'left', 'center', 'center'];
@@ -125,20 +127,26 @@ export default function RegistrationPage() {
   const [isOpenOption, setIsOpenOption] = useState([]);
   const [imageBackdrop, setImageBackdrop] = useState(ImageNotFound);
   const [openImageBackdrop, setOpenImageBackdrop] = useState(false);
+  const [isConfirmFormulirProcess, setIsConfirmFormulirProcess] = useState(false);
+
+  const showAlertToast = (type, text) =>
+    setAlertDescription({
+      ...alertDescription,
+      isOpen: true,
+      type: type,
+      text: text
+    });
 
   useEffect(() => {
     if (!(sidebarReducer.isOpen.findIndex((id) => id === 'registration') > -1)) {
       dispatch({ type: MENU_OPEN, id: 'registration' });
     }
-    const listenerRegistration = onSnapshot(
-      query(collection(db, 'pendaftaran'), where('status', '==', 'waitingConfirmation')),
-      (snapshot) => {
-        setData(snapshot.docs.map((document) => ({ id: document.id, ...document.data() })));
-      }
-    );
+    const listenerFormulir = onSnapshot(query(collection(db, 'formulir'), where('isConfirmed', '==', false)), (snapshot) => {
+      setData(snapshot.docs.map((document) => ({ id: document.id, ...document.data() })));
+    });
 
     return () => {
-      listenerRegistration();
+      listenerFormulir();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -168,14 +176,14 @@ export default function RegistrationPage() {
               return data.map((data, index) => (
                 <TableRow key={index}>
                   <TableCell align={tableAlignContent[0]}>{index + 1}</TableCell>
-                  <TableCell align={tableAlignContent[1]}>{data.fullname}</TableCell>
+                  <TableCell align={tableAlignContent[1]}>{data.nama_lengkap}</TableCell>
                   <TableCell align={tableAlignContent[2]}>{data.email}</TableCell>
                   <TableCell align="center">
                     <Box
-                      sx={{ backgroundImage: `url('${!data.paymentPhotoUrl ? ImageNotFound : data.paymentPhotoUrl}')` }}
+                      sx={{ backgroundImage: `url('${!data.url_bukti_pembayaran ? ImageNotFound : data.url_bukti_pembayaran}')` }}
                       onClick={() => {
-                        if (data.paymentPhotoUrl) {
-                          setImageBackdrop(!data.paymentPhotoUrl ? ImageNotFound : data.paymentPhotoUrl);
+                        if (data.url_bukti_pembayaran) {
+                          setImageBackdrop(!data.url_bukti_pembayaran ? ImageNotFound : data.url_bukti_pembayaran);
                           setOpenImageBackdrop(true);
                         }
                       }}
@@ -223,11 +231,66 @@ export default function RegistrationPage() {
                               <Button
                                 onClick={() => {
                                   closeClickaway(() => {
-                                    //
+                                    if (!isConfirmFormulirProcess) {
+                                      setIsConfirmFormulirProcess(true);
+                                      const password = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-4);
+                                      createUserWithEmailAndPassword(otherAuth, data.email, password)
+                                        .then((userCredential) => {
+                                          setDoc(doc(db, 'santri', userCredential.user.uid), {
+                                            id_formulir: data.id,
+                                            nama: data.nama_lengkap,
+                                            email: data.email,
+                                            kelas: 1,
+                                            url_photo: null
+                                          })
+                                            .catch(() => {
+                                              showAlertToast('warning', 'Akun gagal untuk di daftarkan, silahkan coba kembali');
+                                              setIsConfirmFormulirProcess(false);
+                                              deleteUser(userCredential.user);
+                                            })
+                                            .then(() => {
+                                              updateProfile(userCredential.user, {
+                                                displayName: data.nama_lengkap
+                                              }).then(() => {
+                                                setIsConfirmFormulirProcess(false);
+                                                showAlertToast('success', 'Pendaftaran berhasil dikonfirmasi');
+                                                signOut(otherAuth);
+                                                updateDoc(doc(db, 'formulir', data.id), {
+                                                  id_santri: userCredential.user.uid,
+                                                  isConfirmed: true,
+                                                  tanggal_terdaftar: Timestamp.now()
+                                                });
+                                                emailjs.send(
+                                                  'service_d3i18wn',
+                                                  'template_qpk75nq',
+                                                  {
+                                                    email: data.email,
+                                                    name: data.nama_lengkap,
+                                                    password: password
+                                                  },
+                                                  'oIGj97W5FLJkQwgNo'
+                                                );
+                                              });
+                                            });
+                                        })
+                                        .catch(() => {
+                                          showAlertToast('warning', 'Akun gagal untuk di daftarkan, silahkan coba kembali');
+                                          setIsConfirmFormulirProcess(false);
+                                        });
+                                    }
                                   });
                                 }}
                               >
                                 Konfirmasi Pembayaran
+                              </Button>
+                              <Button
+                                onClick={() => {
+                                  closeClickaway(() => {
+                                    //
+                                  });
+                                }}
+                              >
+                                Batalkan Pendaftaran
                               </Button>
                             </Box>
                           ) : (

@@ -1,50 +1,11 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Box, TableCell, TableRow, styled, Checkbox } from '@mui/material';
-import { tableDisplayType } from 'utils/other/EnvironmentValues';
+import { listSurat, tableDisplayType } from 'utils/other/EnvironmentValues';
 import { useDispatch, useSelector } from 'react-redux';
 import { MENU_OPEN } from 'utils/redux/action';
 import TableDisplay from 'components/elements/TableDisplay';
 import AlertToast from 'components/elements/AlertToast';
 
-const listSurat = [
-  "Surat An Naba'",
-  "Surat An Naazi'aat",
-  "Surat 'Abasa",
-  'Surat At Takwiir',
-  'Surat Al Infithaar',
-  'Surat Al Muthaffifiin',
-  'Surat Al Insyiqaaq',
-  'Surat Al Buruuj',
-  'Surat Ath Thaariq',
-  "Surat Al A'laa",
-  'Surat Al Ghaasyiyah',
-  'Surat Al Fajr',
-  'Surat Al Balad',
-  'Surat Asy Syams',
-  'Surat Al Lail',
-  'Surat Adh Dhuhaa',
-  'Surat Al Insyirah',
-  'Surat At Tin',
-  "Surat Al 'Alaq",
-  'Surat Al Qadr',
-  'Surat Al Bayyinah',
-  'Surat Al Zalzalah',
-  "Surat Al 'Aadiyaat",
-  "Surat Al Qaari'ah",
-  'Surat At Takaatsur',
-  'Surat Al Ashr',
-  'Surat Al Humazah',
-  'Surat Al Fiil',
-  'Surat Quraisy',
-  "Surat Al Maa'uun",
-  'Surat Al Kautsar',
-  'Surat Al Kaafiruun',
-  'Surat An Nashr',
-  'Surat Al Lahab',
-  'Surat Al Ikhlash',
-  'Surat Al Falaq',
-  'Surat An Naas'
-].reverse();
 const tableHeadContent = ['No.', 'Nama Lengkap', ...listSurat];
 const tableAlignContent = ['left', 'left', 'center', 'center', 'center', 'center', 'center'];
 

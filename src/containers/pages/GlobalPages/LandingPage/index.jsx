@@ -23,8 +23,8 @@ export default function LandingPage() {
   const [documentations, setDocumentations] = useState([]);
 
   useEffect(() => {
-    if(location.pathname === "/article"){
-      navigate("/")
+    if (location.pathname === '/article') {
+      navigate('/');
     }
     const listenerDocumentations = onSnapshot(collection(db, 'dokumentasi'), async (snapshot) =>
       setDocumentations(

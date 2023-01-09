@@ -22,8 +22,8 @@ export default function UserProfile({ section }) {
           <Grid container item xs={12} md={4} alignItems="center" justifyContent="center">
             <Avatar
               sx={{ width: { xs: 230, sm: 250, md: 220 }, height: { xs: 230, sm: 250, md: 220 } }}
-              alt={accountReducer.name}
-              src={accountReducer.photoUrl}
+              alt={accountReducer.nama}
+              src={accountReducer.url_photo}
             />
           </Grid>
           <Grid container item direction="column" xs={12} md={8} gap={{ xs: 3, sm: 5 }} marginTop={{ xs: 5, sm: 7, md: 0 }}>
@@ -43,7 +43,7 @@ export default function UserProfile({ section }) {
               </Typography>
               <Box>
                 <Typography variant="p" component="p">
-                  {accountReducer.name}
+                  {accountReducer.nama}
                 </Typography>
               </Box>
             </Box>

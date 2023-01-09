@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import ProjectBox from 'components/views/LandingContent/ProjectBox';
+import DocumentationCard from 'components/views/LandingContent/DocumentationCard';
 import ClientSlider from '../ClientSlider';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from 'config/firebase';
@@ -39,19 +39,14 @@ export default function Dokumentasi(props) {
       <div>
         <div className="container">
           <HeaderInfo>
-            <Typography
-              variant="h1"
-              component="h1"
-              className="extraBold"
-              sx={{ fontSize: 32, marginTop: 8, marginBottom: 4 }}
-            >
+            <Typography variant="h1" component="h1" className="extraBold" sx={{ fontSize: 32, marginTop: 8, marginBottom: 4 }}>
               Dokumentasi
             </Typography>
           </HeaderInfo>
           <Grid container spacing={5}>
             {documentations.map((documentation) => (
               <Grid key={documentation.id} item xs={12} sm={6} md={4}>
-                <ProjectBox img={documentation.file_url} title={documentation.judul} />
+                <DocumentationCard img={documentation.file_url} title={documentation.judul} />
               </Grid>
             ))}
           </Grid>

@@ -5,14 +5,16 @@ import NilaiPage from 'containers/pages/SantriPages/NilaiPage';
 import HafalanPage from 'containers/pages/SantriPages/HafalanPage';
 import PembayaranPage from 'containers/pages/SantriPages/PembayaranPage';
 import { Navigate, Route } from 'react-router';
+import ArticleDetailPage from 'containers/pages/GlobalPages/ArticleDetail';
 
 const SantriRoutes = [
   <Route key="/santri" exact path="/santri" replace element={<Navigate to="artikel" />} />,
-  <Route key="/santri/artikel" path="artikel" element={<ArticlePage />} />,
-  <Route key="/santri/artikel" path="kelas" element={<ClassPage />} />,
-  <Route key="/santri/artikel" path="nilai" element={<NilaiPage />} />,
-  <Route key="/santri/artikel" path="hafalan" element={<HafalanPage />} />,
-  <Route key="/santri/artikel" path="pembayaran" element={<PembayaranPage />} />,
+  <Route key="/santri/artikel" exact path="artikel" element={<ArticlePage />} />,
+  <Route key="/santri/artikel/id" exact path="artikel/:id" element={<ArticleDetailPage sectionContent />} />,
+  <Route key="/santri/kelas" path="kelas" element={<ClassPage />} />,
+  <Route key="/santri/nilai" path="nilai" element={<NilaiPage />} />,
+  <Route key="/santri/hafalan" path="hafalan" element={<HafalanPage />} />,
+  <Route key="/santri/pembayaran" path="pembayaran" element={<PembayaranPage />} />,
   <Route key="/santri/profile" path="profile" element={<UserProfile section={'Santri'} />} />
 ];
 

@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MENU_OPEN } from 'utils/redux/action';
 
 const PageRoot = styled(Box)(({ theme }) => ({
-  padding : 20,
-  
+  padding: 20,
+
   '& > div:first-of-type': {
-    display : 'flex',
+    display: 'flex',
     alignItems: 'center',
-    justifyContent : 'space-between',
-    '& > button' : {
+    justifyContent: 'space-between',
+    '& > button': {
       fontWeight: 'bold'
     }
   },
@@ -48,7 +48,7 @@ const PageRoot = styled(Box)(({ theme }) => ({
           gap: 10
         }
       },
-      '& > button' : {
+      '& > button': {
         fontWeight: 'bold'
       }
     }
@@ -107,9 +107,7 @@ export default function MateriPage({ classNumber }) {
         <Typography component="h2" variant="h2">
           Materi Kelas
         </Typography>
-        <Button variant='contained'>
-          Tambah Materi
-        </Button>
+        <Button variant="contained">Tambah Materi</Button>
       </Box>
       <br />
       <Box>

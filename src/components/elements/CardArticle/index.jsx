@@ -10,7 +10,7 @@ export default function CardArticle(props) {
   const navigate = useNavigate();
 
   return (
-    <Card sx={{ maxWidth: 345 }} onClick={() => navigate(`/article/${props.articleId}`)}>
+    <Card sx={{ maxWidth: 345 }} onClick={() => navigate(`${props.fromPath}/${props.articleId}`)}>
       <CardActionArea>
         <CardMedia component="img" height="140" src={props.image} />
         <CardContent>

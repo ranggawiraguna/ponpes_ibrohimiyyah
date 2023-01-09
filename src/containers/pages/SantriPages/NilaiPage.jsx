@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MENU_OPEN } from 'utils/redux/action';
 import TableDisplay from 'components/elements/TableDisplay';
 import AlertToast from 'components/elements/AlertToast';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { db } from 'config/firebase';
 
 const tableHeadContent = ['No.', 'Materi', 'Nilai'];
 const tableAlignContent = ['left', 'left', 'left'];
@@ -28,6 +30,7 @@ const PageRoot = styled(Box)(() => ({
 export default function NilaiPage() {
   const dispatch = useDispatch();
   const sidebarReducer = useSelector((state) => state.sidebarReducer);
+  const accountReducer = useSelector((state) => state.accountReducer);
 
   const [alertDescription, setAlertDescription] = useState({
     isOpen: false,
@@ -36,16 +39,53 @@ export default function NilaiPage() {
     transitionName: 'slideUp'
   });
 
-  const [data] = useState(['Fiqih', 'Tajwid', "Al-Qur'an & Hadist", 'Aqidah dan Akhlak']);
+  const [listMateri, setListMateri] = useState([]);
+  const [listNilai, setListNilai] = useState([]);
 
   useEffect(() => {
     if (!(sidebarReducer.isOpen.findIndex((id) => id === 'value') > -1)) {
       dispatch({ type: MENU_OPEN, id: 'value' });
     }
 
-    return () => {};
+    const listenerListMateri = onSnapshot(query(collection(db, 'materi'), where('kelas', '==', accountReducer.kelas)), async (snapshot) =>
+      setListMateri(
+        await Promise.all(
+          snapshot.docs.map((document) => ({
+            id: document.id,
+            ...document.data()
+          }))
+        )
+      )
+    );
+
+    return () => {
+      listenerListMateri();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const listenerListNilai = onSnapshot(
+      query(
+        collection(db, 'nilai'),
+        where('id_materi', 'in', listMateri.length > 0 ? listMateri.map((_) => _.id) : ['']),
+        where('id_santri', '==', accountReducer.id)
+      ),
+      async (snapshot) =>
+        setListNilai(
+          await Promise.all(
+            snapshot.docs.map((document) => ({
+              id: document.id,
+              ...document.data()
+            }))
+          )
+        )
+    );
+
+    return () => {
+      listenerListNilai();
+    };
+  }, [accountReducer.id, listMateri]);
 
   return (
     <Fragment>
@@ -56,11 +96,13 @@ export default function NilaiPage() {
           tableAlignContent={tableAlignContent}
           tableHeadContent={tableHeadContent}
           tableBodyContent={(() => {
-            return data.map((data, index) => (
+            return listMateri.map((data, index) => (
               <TableRow key={index}>
                 <TableCell align={tableAlignContent[0]}>{index + 1}</TableCell>
-                <TableCell align={tableAlignContent[1]}>{data}</TableCell>
-                <TableCell align={tableAlignContent[2]}>{Math.floor((Math.random() * 30) + 71)}</TableCell>
+                <TableCell align={tableAlignContent[1]}>{data.name}</TableCell>
+                <TableCell align={tableAlignContent[2]}>
+                  {listNilai.some((_) => _.id_materi === data.id) ? listNilai.find((_) => _.id_materi === data.id).nilai : 'Belum Ada'}
+                </TableCell>
               </TableRow>
             ));
           })()}

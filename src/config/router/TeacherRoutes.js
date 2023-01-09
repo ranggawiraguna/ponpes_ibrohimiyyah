@@ -15,7 +15,7 @@ const TeacherRoutes = [
   <Route key="/guru/penilaian" path="penilaian" element={<PenilaianPage />} />,
   <Route key="/guru/hafalan" path="hafalan" element={<HafalanPage />} />,
   <Route key="/guru/absensi" path="absensi" element={<AbsensiPage />} />,
-  <Route key="/guru/profile" path="profile" element={<UserProfile section='Guru' />} />
+  <Route key="/guru/profile" path="profile" element={<UserProfile section="Guru" />} />
 ];
 
 export default TeacherRoutes;

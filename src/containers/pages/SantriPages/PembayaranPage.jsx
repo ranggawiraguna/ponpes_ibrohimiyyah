@@ -1,5 +1,5 @@
 import TableDisplay from 'components/elements/TableDisplay';
-import { Avatar, Box, Button, TableCell, TableRow, Typography, styled, CardMedia } from '@mui/material';
+import { Avatar, Box, Button, TableCell, TableRow, styled, CardMedia } from '@mui/material';
 import { tableDisplayType } from 'utils/other/EnvironmentValues';
 import { Fragment, useEffect, useState } from 'react';
 import { MENU_OPEN } from 'utils/redux/action';
@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import AlertToast from 'components/elements/AlertToast';
 import TransactionConfirmed from 'assets/icon/TransactionConfirmed.svg';
 import TransactionDelayed from 'assets/icon/TransactionDelayed.svg';
+import { collection, doc, onSnapshot, query, where } from 'firebase/firestore';
+import { db } from 'config/firebase';
 
 const tableHeadContent = ['No.', 'Bulan', 'Jumlah Pembayaran', 'Bukti Pembayaran', 'Keterangan', ''];
 const tableAlignContent = ['center', 'left', 'center', 'center', 'center', 'center'];
@@ -106,6 +108,7 @@ const PageRoot = styled(Box)(() => ({
 export default function PembayaranPage() {
   const dispatch = useDispatch();
   const sidebarReducer = useSelector((state) => state.sidebarReducer);
+  const accountReducer = useSelector((state) => state.accountReducer);
 
   const [alertDescription, setAlertDescription] = useState({
     isOpen: false,
@@ -114,11 +117,9 @@ export default function PembayaranPage() {
     transitionName: 'slideUp'
   });
 
-  const firstSigned = 'Maret' ;
-
-  const data = [
-    'Januari', 
-    'Februari', 
+  const months = [
+    'Januari',
+    'Februari',
     'Maret',
     'April',
     'Mei',
@@ -128,74 +129,119 @@ export default function PembayaranPage() {
     'September',
     'Oktober',
     'November',
-    'Desember',
+    'Desember'
   ];
+  const [yearSelected, setYearSelected] = useState(new Date().getFullYear());
+  const [listPembayaran, setListPembayaran] = useState([]);
+  const [accountFormulir, setAccountFormulir] = useState({});
 
   useEffect(() => {
     if (!(sidebarReducer.isOpen.findIndex((id) => id === 'payment') > -1)) {
       dispatch({ type: MENU_OPEN, id: 'payment' });
     }
 
-    return () => {};
+    const listenerListPembayaran = onSnapshot(
+      query(collection(db, 'pembayaran'), where('id_santri', '==', accountReducer.id)),
+      async (snapshot) =>
+        setListPembayaran(
+          await Promise.all(
+            snapshot.docs.map((document) => ({
+              id: document.id,
+              ...document.data()
+            }))
+          )
+        )
+    );
+
+    const listenerAccountFormulir = onSnapshot(doc(db, 'formulir', accountReducer.id_formulir), (snapshot) => {
+      if (snapshot.exists()) {
+        setAccountFormulir({
+          id: snapshot.id,
+          ...snapshot.data()
+        });
+      }
+    });
+
+    return () => {
+      listenerListPembayaran();
+      listenerAccountFormulir();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(accountFormulir.tanggal_terdaftar ? accountFormulir.tanggal_terdaftar.toDate().getFullYear() : '');
+
   return (
-    <div>
-      <Fragment>
-        <PageRoot>
-          <TableDisplay
-            title="Pembayaran Santri"
-            tableContentType={tableDisplayType.row}
-            tableAlignContent={tableAlignContent}
-            tableHeadContent={tableHeadContent}
-            tableBodyContent={(() => {
-              if (data.length <= 0) {
+    <Fragment>
+      <PageRoot>
+        <TableDisplay
+          title="Pembayaran Santri"
+          withOptionHeader
+          optionValues={
+            accountFormulir.tanggal_terdaftar
+              ? Array.from(
+                  { length: new Date().getFullYear() - accountFormulir.tanggal_terdaftar.toDate().getFullYear() + 1 },
+                  (_, __) => ({
+                    label: new Date().getFullYear() - __,
+                    value: new Date().getFullYear() - __
+                  })
+                ).reverse()
+              : []
+          }
+          optionAction={(value) => setYearSelected(parseInt(value))}
+          optionSelected={yearSelected}
+          tableContentType={tableDisplayType.row}
+          tableAlignContent={tableAlignContent}
+          tableHeadContent={tableHeadContent}
+          tableBodyContent={(() =>
+            months
+              .slice(
+                accountFormulir.tanggal_terdaftar
+                  ? yearSelected === accountFormulir.tanggal_terdaftar.toDate().getFullYear()
+                    ? months.indexOf(
+                        accountFormulir.tanggal_terdaftar ? months[accountFormulir.tanggal_terdaftar.toDate().getMonth()] : 'Januari'
+                      )
+                    : 0
+                  : 0
+              )
+              .map((data, index) => {
+                const paymentRow = listPembayaran.find((_) =>
+                  _.tanggal_terdaftar
+                    ? _.tanggal_terdaftar.toDate().getFullYear() === yearSelected &&
+                      months[_.tanggal_terdaftar.toDate().getMonth()] === data
+                    : false
+                );
+
                 return (
-                  <TableRow>
-                    <TableCell colSpan={tableHeadContent.length} align="center">
-                      <Typography variant="p" component="p" sx={{ color: 'rgba(0,0,0,0.6)' }}>
-                        Belum terdapat pendaftaran santri baru
-                      </Typography>
+                  <TableRow key={index}>
+                    <TableCell align={tableAlignContent[0]}>{index + 1}</TableCell>
+                    <TableCell align={tableAlignContent[1]}>{data}</TableCell>
+                    <TableCell align={tableAlignContent[2]}>{paymentRow ? paymentRow.jumlah : 'Rp. -'}</TableCell>
+                    <TableCell align={tableAlignContent[3]}>
+                      {paymentRow ? (
+                        <Avatar sx={{ margin: '0 auto' }} src={paymentRow ? paymentRow.url_bukti_pembayaran : ''} />
+                      ) : (
+                        'Tidak Ada'
+                      )}
+                    </TableCell>
+                    <TableCell align="center">
+                      {(() => {
+                        if (!paymentRow) {
+                          return 'Belum Bayar';
+                        } else {
+                          return <CardMedia component="img" src={paymentRow.isConfirmed ? TransactionConfirmed : TransactionDelayed} />;
+                        }
+                      })()}
+                    </TableCell>
+                    <TableCell align={tableAlignContent[5]}>
+                      <Button variant="contained">Upload Bukti</Button>
                     </TableCell>
                   </TableRow>
                 );
-              }
-
-              return data.slice(data.indexOf(firstSigned)).concat(data.slice(0, data.indexOf(firstSigned))).map((data, index) => (
-                <TableRow key={index}>
-                  <TableCell align={tableAlignContent[0]}>{index + 1}</TableCell>
-                  <TableCell align={tableAlignContent[1]}>{data}</TableCell>
-                  <TableCell align={tableAlignContent[2]}>{'xxxxx'}</TableCell>
-                  <TableCell align={tableAlignContent[3]}>
-                    <Avatar sx={{ margin: '0 auto' }} src={'xxxxx'} />
-                  </TableCell>
-                  <TableCell align="center">
-                    {(() => {
-                      const x = Math.floor(Math.random() * 3);
-
-                      if (x === 0) {
-                        return '-';
-                      } else {
-                        return (
-                          <CardMedia
-                            component="img"
-                            src={x === 1 ? TransactionConfirmed : TransactionDelayed}
-                          />
-                        );
-                      }
-                    })()}
-                  </TableCell>
-                  <TableCell align={tableAlignContent[5]}>
-                    <Button variant="contained">Upload Bukti</Button>
-                  </TableCell>
-                </TableRow>
-              ));
-            })()}
-          />
-        </PageRoot>
-        <AlertToast description={alertDescription} setDescription={setAlertDescription} />
-      </Fragment>
-    </div>
+              }))()}
+        />
+      </PageRoot>
+      <AlertToast description={alertDescription} setDescription={setAlertDescription} />
+    </Fragment>
   );
 }

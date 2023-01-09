@@ -1,53 +1,16 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Box, TableCell, TableRow, styled } from '@mui/material';
-import { tableDisplayType } from 'utils/other/EnvironmentValues';
+import { listSurat, tableDisplayType } from 'utils/other/EnvironmentValues';
 import { useDispatch, useSelector } from 'react-redux';
 import { MENU_OPEN } from 'utils/redux/action';
 import TableDisplay from 'components/elements/TableDisplay';
 import AlertToast from 'components/elements/AlertToast';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { db } from 'config/firebase';
 
-const listSurat = [
-  "Surat An Naba'",
-  "Surat An Naazi'aat",
-  "Surat 'Abasa",
-  'Surat At Takwiir',
-  'Surat Al Infithaar',
-  'Surat Al Muthaffifiin',
-  'Surat Al Insyiqaaq',
-  'Surat Al Buruuj',
-  'Surat Ath Thaariq',
-  "Surat Al A'laa",
-  'Surat Al Ghaasyiyah',
-  'Surat Al Fajr',
-  'Surat Al Balad',
-  'Surat Asy Syams',
-  'Surat Al Lail',
-  'Surat Adh Dhuhaa',
-  'Surat Al Insyirah',
-  'Surat At Tin',
-  "Surat Al 'Alaq",
-  'Surat Al Qadr',
-  'Surat Al Bayyinah',
-  'Surat Al Zalzalah',
-  "Surat Al 'Aadiyaat",
-  "Surat Al Qaari'ah",
-  'Surat At Takaatsur',
-  'Surat Al Ashr',
-  'Surat Al Humazah',
-  'Surat Al Fiil',
-  'Surat Quraisy',
-  "Surat Al Maa'uun",
-  'Surat Al Kautsar',
-  'Surat Al Kaafiruun',
-  'Surat An Nashr',
-  'Surat Al Lahab',
-  'Surat Al Ikhlash',
-  'Surat Al Falaq',
-  'Surat An Naas'
-].reverse();
-const tableHeadContent = ['No.', 'Materi', 'Sudah / Belum'];
+const tableHeadContent = ['No.', 'Materi', 'Keterangan'];
 const tableAlignContent = ['left', 'left', 'center'];
 
 const PageRoot = styled(Box)(() => ({
@@ -69,6 +32,7 @@ const PageRoot = styled(Box)(() => ({
 export default function HafalanPage() {
   const dispatch = useDispatch();
   const sidebarReducer = useSelector((state) => state.sidebarReducer);
+  const accountReducer = useSelector((state) => state.accountReducer);
 
   const [alertDescription, setAlertDescription] = useState({
     isOpen: false,
@@ -77,12 +41,29 @@ export default function HafalanPage() {
     transitionName: 'slideUp'
   });
 
+  const [listHafalan, setListHafalan] = useState([]);
+
   useEffect(() => {
     if (!(sidebarReducer.isOpen.findIndex((id) => id === 'memory') > -1)) {
       dispatch({ type: MENU_OPEN, id: 'memory' });
     }
 
-    return () => {};
+    const listenerListHafalan = onSnapshot(
+      query(collection(db, 'hafalan'), where('id_santri', '==', accountReducer.id)),
+      async (snapshot) =>
+        setListHafalan(
+          await Promise.all(
+            snapshot.docs.map((document) => ({
+              id: document.id,
+              ...document.data()
+            }))
+          )
+        )
+    );
+
+    return () => {
+      listenerListHafalan();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -100,7 +81,7 @@ export default function HafalanPage() {
                 <TableCell align={tableAlignContent[0]}>{index + 1}</TableCell>
                 <TableCell align={tableAlignContent[1]}>{surat}</TableCell>
                 <TableCell align={tableAlignContent[2]}>
-                  {Math.floor((Math.random() * 2)) === 0 ? <CheckBoxOutlineBlankIcon/> : <CheckBoxIcon color='primary'/>}
+                  {listHafalan.some((_) => _.nama_surat === surat) ? <CheckBoxIcon color="primary" /> : <CheckBoxOutlineBlankIcon />}
                 </TableCell>
               </TableRow>
             ));

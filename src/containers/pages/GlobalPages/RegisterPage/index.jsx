@@ -71,30 +71,30 @@ const steps = ['Biodata Santri', 'Biodata Orang Tua', 'Proses Pembayaran'];
 
 export default function RegisterPage() {
   const [values, setValues] = useState({
-    fullname: '',
-    placeAndDateOfBirth: '',
-    address: '',
-    gender: '',
-    childOrder: '',
-    numberOfSiblings: '',
-    schoolName: '',
-    schoolClass: '',
-    schoolDate: '',
-    phoneNumber: '',
+    nama_lengkap: '',
+    tempat_tanggal_lahir: '',
+    alamat: '',
+    jenis_kelamin: '',
+    anak_ke: '',
+    jumlah_saudara: '',
+    nama_sekolah: '',
+    kelas_sekolah: '',
+    masuk_sekolah: '',
+    nomor_telepon: '',
     email: '',
-    fullnameFather: '',
-    statusFather: '',
-    placeAndDateOfBirthFather: '',
-    workFather: '',
-    phoneNumberFather: '',
-    fullnameMother: '',
-    statusMother: '',
-    placeAndDateOfBirthMother: '',
-    workMother: '',
-    phoneNumberMother: '',
-    addressParent: '',
-    purpose: '',
-    paymentPhotoUrl: null
+    nama_lengkap_ayah: '',
+    status_ayah: '',
+    ttl_ayah: '',
+    pekerjaan_ayah: '',
+    nomor_telepon_ayah: '',
+    nama_lengkap_ibu: '',
+    status_ibu: '',
+    ttl_ibu: '',
+    pekerjaan_ibu: '',
+    nomor_telepon_ibu: '',
+    alamat_orang_tua: '',
+    tujuan_mendaftar: '',
+    url_bukti_pembayaran: null
   });
 
   const [indexStep, setIndexStep] = useState(0);
@@ -117,16 +117,16 @@ export default function RegisterPage() {
                       return (
                         <FormBiodataSantri
                           values={{
-                            fullname: values.fullname,
-                            placeAndDateOfBirth: values.placeAndDateOfBirth,
-                            address: values.address,
-                            gender: values.gender,
-                            childOrder: values.childOrder,
-                            numberOfSiblings: values.numberOfSiblings,
-                            schoolName: values.schoolName,
-                            schoolClass: values.schoolClass,
-                            schoolDate: values.schoolDate,
-                            phoneNumber: values.phoneNumber,
+                            nama_lengkap: values.nama_lengkap,
+                            tempat_tanggal_lahir: values.tempat_tanggal_lahir,
+                            alamat: values.alamat,
+                            jenis_kelamin: values.jenis_kelamin,
+                            anak_ke: values.anak_ke,
+                            jumlah_saudara: values.jumlah_saudara,
+                            nama_sekolah: values.nama_sekolah,
+                            kelas_sekolah: values.kelas_sekolah,
+                            masuk_sekolah: values.masuk_sekolah,
+                            nomor_telepon: values.nomor_telepon,
                             email: values.email
                           }}
                           onChange={handleChange}
@@ -138,18 +138,18 @@ export default function RegisterPage() {
                       return (
                         <FormBiodataOrangTua
                           values={{
-                            fullnameFather: values.fullnameFather,
-                            statusFather: values.statusFather,
-                            placeAndDateOfBirthFather: values.placeAndDateOfBirthFather,
-                            workFather: values.workFather,
-                            phoneNumberFather: values.phoneNumberFather,
-                            fullnameMother: values.fullnameMother,
-                            statusMother: values.statusMother,
-                            placeAndDateOfBirthMother: values.placeAndDateOfBirthMother,
-                            workMother: values.workMother,
-                            phoneNumberMother: values.phoneNumberMother,
-                            addressParent: values.addressParent,
-                            purpose: values.purpose
+                            nama_lengkap_ayah: values.nama_lengkap_ayah,
+                            status_ayah: values.status_ayah,
+                            ttl_ayah: values.ttl_ayah,
+                            pekerjaan_ayah: values.pekerjaan_ayah,
+                            nomor_telepon_ayah: values.nomor_telepon_ayah,
+                            nama_lengkap_ibu: values.nama_lengkap_ibu,
+                            status_ibu: values.status_ibu,
+                            ttl_ibu: values.ttl_ibu,
+                            pekerjaan_ibu: values.pekerjaan_ibu,
+                            nomor_telepon_ibu: values.nomor_telepon_ibu,
+                            alamat_orang_tua: values.alamat_orang_tua,
+                            tujuan_mendaftar: values.tujuan_mendaftar
                           }}
                           onChange={handleChange}
                           onChangeStep={setIndexStep}
@@ -161,7 +161,7 @@ export default function RegisterPage() {
                         <ScreenRegisterPayment
                           values={values}
                           onChangeStep={setIndexStep}
-                          setPayment={(value) => setValues({ ...values, paymentPhotoUrl: value })}
+                          setPayment={(value) => setValues({ ...values, url_bukti_pembayaran: value })}
                         />
                       );
 

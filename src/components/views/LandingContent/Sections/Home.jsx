@@ -7,7 +7,6 @@ import { db } from 'config/firebase';
 
 const Component = muiStyled(Box)(({ theme }) => ({
   width: '100%',
-  paddingTop: 120,
   paddingBottom: 30,
   gap: 30,
 
@@ -24,7 +23,7 @@ const Component = muiStyled(Box)(({ theme }) => ({
   }
 }));
 
-export default function Home() {
+export default function Home({ paddingTop = 18, fromPath = '/article' }) {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
@@ -51,9 +50,16 @@ export default function Home() {
 
   return (
     <Wrapper id="home" className="container flexSpaceCenter">
-      <Component>
+      <Component sx={{ paddingTop: paddingTop }}>
         {articles.map((article) => (
-          <CardArticle key={article.id} articleId={article.id} title={article.judul} description={article.deskripsi} image={article.url_photo} />
+          <CardArticle
+            key={article.id}
+            articleId={article.id}
+            title={article.judul}
+            description={article.deskripsi}
+            image={article.url_photo}
+            fromPath={fromPath}
+          />
         ))}
       </Component>
     </Wrapper>

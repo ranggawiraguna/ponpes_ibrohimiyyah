@@ -123,7 +123,7 @@ export default function ProfileSection() {
         }}
         icon={
           <Avatar
-            src={''}
+            src={accountReducer.url_photo}
             sx={{
               ...theme.typography.mediumAvatar,
               margin: '8px 0 8px 8px !important',
@@ -171,7 +171,7 @@ export default function ProfileSection() {
                     <Stack>
                       <Stack direction="row" spacing={0.5} alignItems="center">
                         <Typography variant="h4" sx={{ fontFamily: 'Folks' }}>
-                          {accountReducer.name}
+                          {accountReducer.nama}
                         </Typography>
                       </Stack>
                       <Typography variant="subtitle2" sx={{ fontFamily: 'Folks' }}>

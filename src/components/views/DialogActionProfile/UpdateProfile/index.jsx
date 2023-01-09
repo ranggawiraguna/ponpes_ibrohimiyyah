@@ -23,14 +23,16 @@ import ProfileEditPicture from 'assets/icon/ProfileEditPicture.svg';
 import PropTypes from 'prop-types';
 import IllustrationProfileChangePassword from 'assets/illustration/ProfileChangePassword.svg';
 import AlertToast from 'components/elements/AlertToast';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/system';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { auth } from 'config/firebase';
 import { EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
+import { updateIdentity } from 'utils/redux/reducers/account';
 
 const DialogUpdateProfile = forwardRef(({ open, onClose, ...others }, ref) => {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const accountReducer = useSelector((state) => state.accountReducer);
@@ -42,7 +44,7 @@ const DialogUpdateProfile = forwardRef(({ open, onClose, ...others }, ref) => {
 
   const [inputValues, setInputValues] = useState({
     email: '',
-    name: '',
+    nama: '',
     passwordVerify: '',
     showPasswordVerify: false
   });
@@ -59,7 +61,7 @@ const DialogUpdateProfile = forwardRef(({ open, onClose, ...others }, ref) => {
       setInputValues({
         ...inputValues,
         email: accountReducer.email,
-        name: accountReducer.name
+        nama: accountReducer.nama
       });
     }
   }, [open]);
@@ -69,11 +71,11 @@ const DialogUpdateProfile = forwardRef(({ open, onClose, ...others }, ref) => {
 
     if (selectedImage) {
       data = {
-        photoUrl: selectedImage
+        url_photo: selectedImage
       };
     }
 
-    for (let key of ['email', 'name']) {
+    for (let key of ['email', 'nama']) {
       if (inputValues[key] !== accountReducer[key]) {
         data = {
           ...data,
@@ -124,7 +126,27 @@ const DialogUpdateProfile = forwardRef(({ open, onClose, ...others }, ref) => {
             setIsUpdateProcess(false);
           }
         } else {
-          //
+          dispatch(
+            updateIdentity({
+              data: data,
+              id: accountReducer.id,
+              role: accountReducer.role,
+              setIsUpdateProcess: setIsUpdateProcess,
+              showAlert: showAlertToast,
+              handleClose: () => {
+                onClose();
+                setTimeout(() => {
+                  setProfileImage(null);
+                  setOpenVerifyPassword(false);
+                  setInputValues({
+                    ...inputValues,
+                    email: '',
+                    fullnama: ''
+                  });
+                }, 500);
+              }
+            })
+          );
         }
       } else {
         setIsUpdateProcess(false);
@@ -169,7 +191,7 @@ const DialogUpdateProfile = forwardRef(({ open, onClose, ...others }, ref) => {
         setInputValues({
           ...inputValues,
           email: '',
-          name: ''
+          nama: ''
         });
       }, 500);
     }
@@ -223,8 +245,8 @@ const DialogUpdateProfile = forwardRef(({ open, onClose, ...others }, ref) => {
             <Box sx={{ position: 'relative', width: 200, height: 200 }} marginTop={{ xs: 2 }} marginBottom={{ xs: 1 }}>
               <Avatar
                 sx={{ width: 200, height: 200 }}
-                alt={accountReducer.name}
-                src={selectedImage ? URL.createObjectURL(selectedImage) : accountReducer.photoUrl}
+                alt={accountReducer.nama}
+                src={selectedImage ? URL.createObjectURL(selectedImage) : accountReducer.url_photo}
               />
               <Box sx={{ position: 'absolute', bottom: 0, right: 0, width: 60, height: 60 }}>
                 <input
@@ -257,13 +279,16 @@ const DialogUpdateProfile = forwardRef(({ open, onClose, ...others }, ref) => {
               variant="outlined"
               className="input"
             >
-              <InputLabel htmlFor="InputEmail">Email</InputLabel>
+              <InputLabel htmlFor="InputEmail" sx={{ fontFamily: 'Folks' }}>
+                Email
+              </InputLabel>
               <OutlinedInput
-                readOnly
                 id="InputEmail"
                 type="email"
                 value={inputValues.email}
                 onChange={handleChangeInput('email')}
+                s
+                sx={{ fontFamily: 'Folks' }}
                 label="Email"
                 autoComplete="off"
               />
@@ -279,12 +304,14 @@ const DialogUpdateProfile = forwardRef(({ open, onClose, ...others }, ref) => {
               variant="outlined"
               className="input"
             >
-              <InputLabel htmlFor="InputNamaLengkap">Nama Lengkap</InputLabel>
+              <InputLabel htmlFor="InputNamaLengkap" sx={{ fontFamily: 'Folks' }}>
+                Nama Lengkap
+              </InputLabel>
               <OutlinedInput
                 id="InputNamaLengkap"
-                type="name"
-                value={inputValues.name}
-                onChange={handleChangeInput('name')}
+                type="nama"
+                value={inputValues.nama}
+                onChange={handleChangeInput('nama')}
                 label="NamaLengkap"
                 autoComplete="off"
               />
@@ -385,7 +412,6 @@ const DialogUpdateProfile = forwardRef(({ open, onClose, ...others }, ref) => {
           </Grid>
         </DialogActions>
       </Dialog>
-
       <AlertToast description={alertDescription} setDescription={setAlertDescription} />
     </Fragment>
   );

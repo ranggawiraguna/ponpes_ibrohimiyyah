@@ -12,75 +12,70 @@ export default function FormBiodataOrangTua({ values, onChange, onChangeStep }) 
         <Box>
           <BootstrapInput
             id="input-nama-lengkap-ayah"
-            defaultValue={values.fullnameFather}
+            defaultValue={values.nama_lengkap_ayah}
             label="Nama Lengkap Ayah"
-            onChange={onChange('fullnameFather')}
+            onChange={onChange('nama_lengkap_ayah')}
           />
-          <BootstrapInput
-            id="input-status-ayah"
-            defaultValue={values.statusFather}
-            label="Status Ayah"
-            onChange={onChange('statusFather')}
-          />
+          <BootstrapInput id="input-status-ayah" defaultValue={values.status_ayah} label="Status Ayah" onChange={onChange('status_ayah')} />
           <BootstrapInput
             id="input-place-and-date-of-birth-ayah"
-            defaultValue={values.placeAndDateOfBirthFather}
+            defaultValue={values.ttl_ayah}
             label="Tempat / Tanggal Lahir Ayah"
-            onChange={onChange('placeAndDateOfBirthFather')}
+            onChange={onChange('ttl_ayah')}
           />
           <BootstrapInput
             id="input-pekerjaan-ayah"
-            defaultValue={values.workFather}
+            defaultValue={values.pekerjaan_ayah}
             label="Pekerjaan Ayah"
-            onChange={onChange('workFather')}
+            onChange={onChange('pekerjaan_ayah')}
           />
           <BootstrapInput
             id="input-telepon-ayah"
-            defaultValue={values.phoneNumberFather}
+            defaultValue={values.nomor_telepon_ayah}
             label="Nomor Telepon Ayah"
-            onChange={onChange('phoneNumberFather')}
+            onChange={onChange('nomor_telepon_ayah')}
           />
         </Box>
         <Box>
           <BootstrapInput
             id="input-nama-lengkap-ibu"
-            defaultValue={values.fullnameMother}
+            defaultValue={values.nama_lengkap_ibu}
             label="Nama Lengkap Ibu"
-            onChange={onChange('fullnameMother')}
+            onChange={onChange('nama_lengkap_ibu')}
           />
-          <BootstrapInput id="input-status-ibu" defaultValue={values.statusMother} label="Status Ibu" onChange={onChange('statusMother')} />
+          <BootstrapInput id="input-status-ibu" defaultValue={values.status_ibu} label="Status Ibu" onChange={onChange('status_ibu')} />
           <BootstrapInput
             id="input-place-and-date-of-birth-ibu"
-            defaultValue={values.placeAndDateOfBirthMother}
+            defaultValue={values.ttl_ibu}
             label="Tempat / Tanggal Lahir Ibu"
-            onChange={onChange('placeAndDateOfBirthMother')}
+            onChange={onChange('ttl_ibu')}
           />
           <BootstrapInput
             id="input-pekerjaan-ibu"
-            defaultValue={values.workMother}
+            defaultValue={values.pekerjaan_ibu}
             label="Pekerjaan Ibu"
-            onChange={onChange('workMother')}
+            onChange={onChange('pekerjaan_ibu')}
           />
           <BootstrapInput
             id="input-telepon-ibu"
-            defaultValue={values.phoneNumberMother}
+            defaultValue={values.nomor_telepon_ibu}
             label="Nomor Telepon Ibu"
-            onChange={onChange('phoneNumberMother')}
+            onChange={onChange('nomor_telepon_ibu')}
           />
         </Box>
       </Box>
       <Box>
         <BootstrapInput
           id="input-alamat-orang-tua"
-          defaultValue={values.addressParent}
+          defaultValue={values.alamat_orang_tua}
           label="Alamat Orang Tua"
-          onChange={onChange('addressParent')}
+          onChange={onChange('alamat_orang_tua')}
         />
         <BootstrapInput
           id="input-tujuan-daftar"
-          defaultValue={values.purpose}
+          defaultValue={values.tujuan_mendaftar}
           label="Tujuan Mendaftarkan Santri"
-          onChange={onChange('purpose')}
+          onChange={onChange('tujuan_mendaftar')}
         />
       </Box>
       <Box>

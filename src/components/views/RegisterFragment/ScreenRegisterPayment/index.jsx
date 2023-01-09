@@ -82,8 +82,8 @@ export default function ScreenRegisterPayment({ thisRef, values, onChangeStep, s
 
   const handleOnChangeImage = (event) => {
     if (event.target?.files?.[0]) {
-      if (values.paymentPhotoUrl) {
-        URL.revokeObjectURL(values.paymentPhotoUrl);
+      if (values.url_bukti_pembayaran) {
+        URL.revokeObjectURL(values.url_bukti_pembayaran);
       }
       setPayment(event.target?.files?.[0]);
     }
@@ -93,21 +93,21 @@ export default function ScreenRegisterPayment({ thisRef, values, onChangeStep, s
     if (!isCreateFormRegister) {
       setIsCreateFormRegister(true);
 
-      const docRef = doc(collection(db, 'pendaftaran'));
+      const docRef = doc(collection(db, 'formulir'));
       let result;
       let data = {};
-      if (values.paymentPhotoUrl) {
+      if (values.url_bukti_pembayaran) {
         data = {
           ...values,
-          paymentPhotoUrl: values.paymentPhotoUrl
+          url_bukti_pembayaran: values.url_bukti_pembayaran
         };
       } else {
         data = { ...values };
       }
 
-      if (data.paymentPhotoUrl) {
+      if (data.url_bukti_pembayaran) {
         try {
-          const snapshot = await uploadBytes(ref(storage, `/pendaftaran-bukti-pembayaran/${docRef.id}`), data.paymentPhotoUrl);
+          const snapshot = await uploadBytes(ref(storage, `/formulir-bukti-pembayaran/${docRef.id}`), data.url_bukti_pembayaran);
           result = await getDownloadURL(snapshot.ref);
         } catch (e) {
           result = null;
@@ -117,16 +117,17 @@ export default function ScreenRegisterPayment({ thisRef, values, onChangeStep, s
       }
 
       if (result) {
-        if (data.paymentPhotoUrl) {
+        if (data.url_bukti_pembayaran) {
           data = {
             ...data,
-            paymentPhotoUrl: result
+            url_bukti_pembayaran: result
           };
         }
 
         setDoc(docRef, {
           ...data,
-          status: 'waitingConfirmation'
+          isConfirmed: false,
+          tanggal_terdaftar: null
         })
           .then(() => {
             setIsCreateFormRegister(true);
@@ -177,7 +178,7 @@ export default function ScreenRegisterPayment({ thisRef, values, onChangeStep, s
               </p>
             </Box>
             {(() => {
-              return values.paymentPhotoUrl === null ? (
+              return values.url_bukti_pembayaran === null ? (
                 <Box className="upload-box">
                   <input
                     sx={{ margin: 0, padding: 0, borderRadius: 1000, width: 60, height: 60 }}
@@ -217,7 +218,7 @@ export default function ScreenRegisterPayment({ thisRef, values, onChangeStep, s
           <Button variant="contained" onClick={() => onChangeStep(1)}>
             Sebelumnya
           </Button>
-          <Button disabled={values.paymentPhotoUrl == null} variant="contained" onClick={handleCreateFormRegister}>
+          <Button disabled={values.url_bukti_pembayaran == null} variant="contained" onClick={handleCreateFormRegister}>
             Kirim & Daftar
           </Button>
         </Box>

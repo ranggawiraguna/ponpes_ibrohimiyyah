@@ -1,7 +1,8 @@
 import * as actionTypes from '../action';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from 'config/firebase';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { auth, db, storage } from 'config/firebase';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 //const values
 export const paths = ['sekretaris', 'guru', 'santri'];
@@ -27,18 +28,20 @@ export function restoreSession(action) {
 
     if (!errorCheck) {
       dispatch({ type: actionTypes.RESTORE_SESSION, data: data });
-      switch (data.role) {
-        case 'sekretaris':
-          return action.navigate('/sekretaris/artikel');
+      if (action.refresh) {
+        switch (data.role) {
+          case 'sekretaris':
+            return action.navigate('/sekretaris/artikel');
 
-        case 'guru':
-          return action.navigate('/guru/artikel');
+          case 'guru':
+            return action.navigate('/guru/artikel');
 
-        case 'santri':
-          return action.navigate('/santri/artikel');
+          case 'santri':
+            return action.navigate('/santri/artikel');
 
-        default:
-          break;
+          default:
+            break;
+        }
       }
     }
   };
@@ -76,14 +79,59 @@ export function createSession(action) {
   };
 }
 
+export function updateIdentity(action) {
+  return async function updateIdentityThunk(dispatch, getState) {
+    if (action.data !== null) {
+      let data = getState().accountReducer;
+
+      let result;
+      if (action.data['url_photo']) {
+        try {
+          const snapshot = await uploadBytes(ref(storage, `/profile-${action.role}/${action.id}`), action.data.url_photo);
+          result = await getDownloadURL(snapshot.ref);
+        } catch (e) {
+          result = null;
+        }
+      } else {
+        result = ' ';
+      }
+
+      if (result) {
+        if (action.data['url_photo']) {
+          action.data = {
+            ...action.data,
+            url_photo: result
+          };
+        }
+
+        console.log('Masuk');
+        await updateDoc(doc(db, action.role, action.id), action.data)
+          .catch((error) => {
+            action.setIsUpdateProcess(false);
+            action.showAlert('warning', error.message);
+          })
+          .then(() => {
+            data = {
+              ...data,
+              ...action.data
+            };
+            dispatch({ type: actionTypes.RESTORE_SESSION, data: data });
+            action.showAlert('success', 'Data profil berhasil diperbarui');
+            action.setIsUpdateProcess(false);
+            action.handleClose();
+          });
+      } else {
+        action.showAlert('warning', 'Terjadi kesalahan, silahkan coba kembali');
+        action.setIsUpdateProcess(false);
+      }
+    }
+  };
+}
+
 const accountReducer = (
   state = {
     isLogin: null,
     id: '',
-    email: '',
-    password: '',
-    name: '',
-    photoUrl: '',
     role: ''
   },
   action

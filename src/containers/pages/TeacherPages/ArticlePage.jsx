@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MENU_OPEN } from 'utils/redux/action';
-import Home  from 'components/views/LandingContent/Sections/Home';
+import Home from 'components/views/LandingContent/Sections/Home';
 
 export default function ArticlePage() {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export default function ArticlePage() {
 
   return (
     <div>
-       <Home />
+      <Home />
     </div>
   );
 }

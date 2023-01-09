@@ -2,9 +2,9 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { TOGGLE_IMAGE_BACKDROP } from 'utils/redux/action';
 
-export default function ProjectBox({ img, title }) {
+export default function DocumentationCard({ img, title }) {
   const dispatch = useDispatch();
-  
+
   return (
     <Wrapper>
       <ImgBtn

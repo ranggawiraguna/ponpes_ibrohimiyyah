@@ -188,12 +188,15 @@ const DialogChangePassword = forwardRef(({ open, onClose, ...others }, ref) => {
                   variant="outlined"
                   className="input"
                 >
-                  <InputLabel htmlFor={`Input${labels[key].replace(' ', '')}`}>{labels[key]}</InputLabel>
+                  <InputLabel htmlFor={`Input${labels[key].replace(' ', '')}`} sx={{ fontFamily: 'Folks' }}>
+                    {labels[key]}
+                  </InputLabel>
                   <OutlinedInput
                     id={`Input${labels[key]}`}
                     type={inputValues[toggleShow] ? 'text' : 'password'}
                     value={inputValues[key]}
                     onChange={handleChangeInput(key)}
+                    sx={{ fontFamily: 'Folks' }}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton

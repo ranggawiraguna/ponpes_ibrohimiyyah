@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MENU_OPEN } from 'utils/redux/action';
-import Home  from 'components/views/LandingContent/Sections/Home';
+import Home from 'components/views/LandingContent/Sections/Home';
+import { useLocation } from 'react-router';
 
 export default function ArticlePage() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const sidebarReducer = useSelector((state) => state.sidebarReducer);
 
   useEffect(() => {
@@ -18,7 +20,7 @@ export default function ArticlePage() {
 
   return (
     <div>
-      <Home />
+      <Home paddingTop={4} fromPath={location.pathname} />
     </div>
   );
 }

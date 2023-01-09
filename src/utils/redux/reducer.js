@@ -8,7 +8,7 @@ const reducer = combineReducers({
   sidebarReducer: sidebarReducer,
   accountReducer: accountReducer,
   searchReducer: searchReducer,
-  landingReducer: landingReducer,
+  landingReducer: landingReducer
 });
 
 export default reducer;
